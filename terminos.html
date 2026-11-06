@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Términos y condiciones | RAV</title>
+<meta name="description" content="Términos y condiciones de uso de RAV | Referee Analytics & Video.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23D4F23A'/%3E%3Ctext x='32' y='41' font-family='Arial' font-weight='700' font-size='22' text-anchor='middle' fill='%230E0F10'%3ERAV%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ====== Colores: cambiá acá para ajustar toda la web ====== */
+:root{
+  --bg:#0E0F10; --bg2:#131517; --card:#17191B; --card2:#1E2124;
+  --line:#23262A; --line2:#34383C;
+  --text:#F2F2EE; --soft:#C9CCCF; --muted:#A3A7AB;
+  --accent:#D4F23A; --accent-hover:#E8FF7A; --on-accent:#0E0F10;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;font-size:16px;line-height:1.55}
+a{color:var(--accent)} a:hover{color:var(--accent-hover)}
+h1,h2,h3,.display{font-family:'Space Grotesk',sans-serif}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+.band{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+section{scroll-margin-top:80px}
+.sec{padding:88px 0}
+.sec-head{display:flex;flex-direction:column;gap:10px;max-width:640px;margin-bottom:36px}
+.sec-head h2{margin:0;font-size:40px;font-weight:700;letter-spacing:-.8px;line-height:1.1}
+.sec-head p{margin:0;color:#B4B8BC;font-size:17px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.card{background:var(--card);border:1px solid #2A2D30;border-radius:14px;padding:26px;display:flex;flex-direction:column;gap:12px}
+.card h3{margin:0;font-size:20px;font-weight:600}
+.card p{margin:0;color:#B4B8BC;font-size:15px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:13px 22px;border-radius:10px;font-weight:600;text-decoration:none;font-size:15px;min-height:46px;border:0;font-family:inherit;cursor:pointer}
+.btn-primary{background:var(--accent);color:var(--on-accent)}
+.btn-primary:hover{background:var(--accent-hover);color:var(--on-accent)}
+.btn-ghost{color:var(--text);border:1px solid var(--line2);background:transparent}
+.btn-ghost:hover{border-color:var(--muted);color:var(--text)}
+.pill{font-size:12px;font-weight:600;color:var(--on-accent);background:var(--accent);border-radius:999px;padding:3px 10px}
+.logo{border-radius:8px;background:var(--accent);color:var(--on-accent);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700}
+
+/* nav */
+header{position:sticky;top:0;z-index:10;background:rgba(14,15,16,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding-top:14px;padding-bottom:14px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--text)}
+.brand span{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:17px}
+.links{display:flex;flex-wrap:wrap;align-items:center;gap:4px}
+.links a.l{color:var(--soft);text-decoration:none;padding:10px 12px;font-size:15px}
+.links a.l:hover{color:var(--text)}
+
+/* hero */
+.hero{display:flex;flex-wrap:wrap;align-items:center;gap:48px;padding-top:88px;padding-bottom:72px}
+.hero-text{flex:1 1 420px;min-width:0;display:flex;flex-direction:column;gap:24px}
+.badge{align-self:flex-start;border:1px solid var(--line2);border-radius:999px;padding:6px 14px;font-size:13px;color:var(--soft)}
+.hero h1{margin:0;font-size:clamp(40px,6vw,60px);line-height:1.04;font-weight:700;letter-spacing:-1.5px}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero p{margin:0;font-size:19px;color:#B4B8BC;max-width:520px}
+.mock{flex:1 1 100%;min-width:0;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);background:#0E0F10;border:1px solid #2A2D30;border-radius:14px;padding:0;display:flex;flex-direction:column;gap:10px}
+.mock img,.mock .shot{width:100%;height:auto;display:block;border-radius:10px}
+.dots{display:flex;gap:6px;padding:2px 4px}.dots i{width:10px;height:10px;border-radius:50%;background:#3A3E42}
+.video{height:230px;border-radius:8px;background:#0B0C0D;display:flex;align-items:center;justify-content:center;color:#6E7377;font-size:13px}
+.tl{position:relative;height:22px}
+.tl b{position:absolute;top:9px;left:8px;right:8px;height:4px;border-radius:2px;background:#2E3236}
+.tl s{position:absolute;top:9px;left:8px;width:38%;height:4px;border-radius:2px;background:var(--accent)}
+.tl u{position:absolute;top:4px;width:3px;height:14px;border-radius:2px}
+.panels{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.panel{background:var(--card2);border-radius:8px;padding:10px;display:flex;flex-direction:column;gap:6px;font-size:12px}
+.panel small{font-size:11px;color:#9EA3A7;letter-spacing:1px}
+.chips{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.chips span{background:#2A2E31;border-radius:5px;padding:6px}
+.row{display:flex;justify-content:space-between;color:#D6D9DC}.row span+span{color:#9EA3A7}
+
+/* descargas */
+.dl{border-radius:14px;padding:28px;gap:16px}
+.dl.rec{border-color:var(--accent)}
+.dl-top{display:flex;align-items:center;justify-content:space-between;min-height:32px}
+.dl .name{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:600}
+.dl .meta{color:var(--muted);font-size:14px}
+.dl .btn{margin-top:auto}
+.note{margin:20px 0 0;color:var(--muted);font-size:14px}
+
+/* novedades */
+.split{display:flex;flex-wrap:wrap;gap:48px}
+.split > :first-child{flex:1 1 300px;min-width:0}
+.split > :last-child{flex:999 1 560px;min-width:0;display:flex;flex-direction:column;gap:16px}
+.rel-head{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.rel-head .v{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:600}
+.rel-head .d{color:var(--muted);font-size:14px}
+.rel ul{margin:0;padding-left:20px;color:var(--soft);font-size:15px;display:flex;flex-direction:column;gap:6px}
+.rel p{color:var(--soft)}
+
+/* instalación */
+.step{display:flex;flex-direction:column;gap:12px;padding-top:20px;border-top:2px solid var(--line2)}
+.step:first-child{border-top-color:var(--accent)}
+.step .n{font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:600;color:var(--muted)}
+.step:first-child .n{color:var(--accent)}
+.step h3{margin:0;font-size:20px;font-weight:600}
+.step p{margin:0;color:#B4B8BC;font-size:15px}
+
+/* autorizar */
+.auth{margin-top:64px;scroll-margin-top:80px}
+.auth-title{margin:0;font-size:28px;font-weight:700;letter-spacing:-.4px}
+.os-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.os.mine{border-color:var(--accent)}
+.howto{margin:0;padding-left:22px;color:var(--soft);font-size:15px;display:flex;flex-direction:column;gap:10px}
+.howto b,.fix b{color:var(--text);font-weight:600}
+.howto li::marker{color:var(--accent);font-weight:600}
+.fix{border-top:1px solid #2A2D30;padding-top:12px;margin-top:4px}
+.fix summary{cursor:pointer;color:var(--accent);font-weight:500;font-size:15px;padding:6px 0}
+.fix p{margin:8px 0 0;color:var(--soft);font-size:15px}
+.code{display:flex;align-items:center;gap:8px;margin-top:10px;background:var(--bg);border:1px solid var(--line2);border-radius:8px;padding:6px 6px 6px 12px}
+.code code{flex:1;min-width:0;overflow-x:auto;white-space:nowrap;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:14px;color:var(--text)}
+.copy{background:var(--card2);color:var(--text);border:1px solid var(--line2);border-radius:6px;padding:8px 12px;font:inherit;font-size:13px;cursor:pointer;min-height:36px}
+.copy:hover{border-color:var(--muted)}
+
+/* reportar */
+.report{background:var(--card);border:1px solid #2A2D30;border-radius:18px;padding:40px;display:flex;flex-wrap:wrap;gap:40px}
+.report > div{flex:1 1 300px;min-width:0;display:flex;flex-direction:column;gap:12px}
+.report h2{margin:0;font-size:34px;font-weight:700;letter-spacing:-.6px;line-height:1.15}
+.report > div p{margin:0;color:#B4B8BC}
+form{flex:999 1 460px;min-width:0;display:flex;flex-direction:column;gap:16px}
+.fields{display:flex;flex-wrap:wrap;gap:16px}
+.field{flex:1 1 200px;min-width:0;display:flex;flex-direction:column;gap:6px}
+label{font-size:14px;color:var(--soft)}
+select,textarea,input{background:var(--bg);color:var(--text);border:1px solid var(--line2);border-radius:8px;padding:12px;font:inherit;font-size:15px;min-height:46px}
+select:focus,textarea:focus,input:focus{outline:2px solid var(--accent);outline-offset:1px}
+textarea{resize:vertical}
+form .btn{align-self:flex-start}
+.formmsg{color:var(--muted);font-size:14px;margin:0}
+.perks{margin:8px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px;color:var(--soft);font-size:15px}
+.perks li{display:flex;gap:10px;align-items:baseline}
+.perks li::before{content:"";flex:none;width:8px;height:8px;border-radius:2px;background:var(--accent);transform:translateY(-1px)}
+
+footer{border-top:1px solid var(--line)}
+.foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding-top:28px;padding-bottom:28px;color:var(--muted);font-size:14px}
+.foot a{color:var(--muted)}
+
+.legal{max-width:780px;padding-top:64px;padding-bottom:88px}
+.legal h1{margin:0 0 8px;font-size:clamp(32px,5vw,44px);letter-spacing:-1px;line-height:1.1}
+.legal .upd{color:var(--muted);font-size:14px;margin:0 0 32px}
+.legal h2{font-size:22px;margin:40px 0 10px;letter-spacing:-.3px}
+.legal p,.legal li{color:var(--soft);font-size:16px}
+.legal ul{padding-left:22px;display:flex;flex-direction:column;gap:6px}
+.legal .intro{background:var(--card);border:1px solid #2A2D30;border-radius:14px;padding:20px 24px;color:var(--soft)}
+.toc{columns:2;column-gap:32px;padding-left:20px;margin:24px 0 0}
+.toc li{margin-bottom:4px}
+@media (max-width:600px){.toc{columns:1}}
+@media (max-width:600px){.sec{padding:64px 0}.report{padding:24px}.sec-head h2{font-size:32px}}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <a class="brand" href="index.html#inicio">
+      <div class="logo" style="width:40px;height:40px;font-size:15px">RAV</div>
+      <span>Referee Analytics &amp; Video</span>
+    </a>
+    <div class="links">
+      <a class="l" href="index.html">Volver al inicio</a>
+      <a class="btn btn-primary" href="index.html#descargas" style="padding:10px 18px;min-height:0">Descargar</a>
+    </div>
+  </nav>
+</header>
+
+<main class="wrap legal">
+  <h1>Términos y condiciones de uso</h1>
+  <p class="upd">Última actualización: 6 de noviembre de 2026</p>
+
+  <div class="intro">
+    <p style="margin:0">RAV | Referee Analytics &amp; Video (“RAV”) es una aplicación de escritorio para analizar videos de partidos de rugby. Al descargar, instalar o usar RAV, o al solicitar una cuenta, aceptás estos términos. Si no estás de acuerdo, no uses la aplicación.</p>
+  </div>
+
+  <ol class="toc">
+    <li><a href="#t1">Quién ofrece RAV</a></li>
+    <li><a href="#t2">Licencia de uso</a></li>
+    <li><a href="#t3">Cuentas y acceso</a></li>
+    <li><a href="#t4">Lo que no está permitido</a></li>
+    <li><a href="#t5">Videos y contenido</a></li>
+    <li><a href="#t6">Análisis, evaluaciones y comentarios</a></li>
+    <li><a href="#t7">Datos personales</a></li>
+    <li><a href="#t8">Propiedad intelectual</a></li>
+    <li><a href="#t9">Software de terceros</a></li>
+    <li><a href="#t10">Garantía y responsabilidad</a></li>
+    <li><a href="#t11">Disponibilidad del servicio</a></li>
+    <li><a href="#t12">Sugerencias y reportes</a></li>
+    <li><a href="#t13">Cambios en los términos</a></li>
+    <li><a href="#t14">Ley aplicable y contacto</a></li>
+  </ol>
+
+  <h2 id="t1">1. Quién ofrece RAV</h2>
+  <p>RAV es desarrollada y administrada por su titular (“nosotros”), con domicilio en la República Argentina. Para cualquier consulta sobre estos términos podés escribir a <a href="mailto:valeferrero4@gmail.com">valeferrero4@gmail.com</a>.</p>
+
+  <h2 id="t2">2. Licencia de uso</h2>
+  <ul>
+    <li>Te otorgamos una licencia <b>personal, no exclusiva, intransferible y revocable</b> para instalar y usar RAV mientras tu cuenta esté habilitada.</li>
+    <li>La licencia es para vos: no la podés ceder, prestar, alquilar ni revender.</li>
+    <li>Cada cuenta se puede usar en una cantidad limitada de computadoras. Si necesitás cambiar de computadora, podés cerrar sesión en la anterior o pedirnos que la liberemos.</li>
+    <li>RAV no se vende: lo que obtenés es el derecho a usarla en estas condiciones. El software sigue siendo nuestro.</li>
+  </ul>
+
+  <h2 id="t3">3. Cuentas y acceso</h2>
+  <ul>
+    <li>Para usar RAV necesitás una cuenta, que damos de alta a nuestro criterio. Los datos que nos des al solicitarla tienen que ser verdaderos.</li>
+    <li>Sos responsable de tu contraseña y de lo que se haga con tu cuenta. <b>No compartas tu usuario</b>: si sospechás que alguien más lo usa, avisanos.</li>
+    <li>Cada cuenta tiene una fecha de vencimiento. Al vencer, o si la cuenta se da de baja, RAV deja de abrir para esa cuenta.</li>
+    <li>Podemos suspender o dar de baja una cuenta que incumpla estos términos, que se use de forma fraudulenta o que afecte a otros usuarios.</li>
+    <li>Las <b>cuentas institucionales</b> (por ejemplo, las que una unión o club contrata para sus integrantes) se rigen además por el acuerdo con esa institución: su alta, su rol y su vigencia dependen de ese acuerdo.</li>
+    <li>Dar de baja o suspender una cuenta no borra los proyectos guardados en tu computadora.</li>
+  </ul>
+
+  <h2 id="t4">4. Lo que no está permitido</h2>
+  <ul>
+    <li>Copiar, modificar, descompilar, desensamblar o aplicar ingeniería inversa a RAV, salvo en lo que la ley lo permita expresamente.</li>
+    <li>Saltear, desactivar o engañar el sistema de cuentas, licencias o vencimientos.</li>
+    <li>Distribuir RAV o sus instaladores por fuera de este sitio, o publicar versiones modificadas.</li>
+    <li>Usar RAV para fines ilegales, para difundir contenido sin autorización de sus titulares o para afectar la imagen o la honra de terceros.</li>
+    <li>Intentar acceder a datos de otros usuarios o sobrecargar los servidores.</li>
+  </ul>
+
+  <h2 id="t5">5. Videos y contenido</h2>
+  <ul>
+    <li><b>Los videos los aportás vos.</b> RAV los abre desde tu computadora y no los sube a ningún servidor.</li>
+    <li>Sos responsable de tener derecho a usar los videos que analizás y de cómo usás los clips, playlists y estadísticas que exportás. En particular, respetá los derechos de los organizadores de cada partido y la imagen de jugadores, árbitros y demás personas que aparecen.</li>
+    <li>En las funciones compartidas de las cuentas institucionales, lo que se comparte con los demás participantes de un partido son los cortes, notas y comentarios, no el video.</li>
+  </ul>
+
+  <h2 id="t6">6. Análisis, evaluaciones y comentarios</h2>
+  <ul>
+    <li>RAV es una herramienta. Los cortes, notas, evaluaciones y comentarios son <b>opiniones de quien los hace</b>, no de RAV.</li>
+    <li>Nada de lo que se genere con RAV es una resolución oficial de ninguna unión, federación ni de World Rugby, ni reemplaza sus procedimientos.</li>
+    <li>No somos responsables por decisiones deportivas, disciplinarias o de designación que se tomen en base a análisis hechos con RAV.</li>
+    <li>Los comentarios en la plataforma tienen que ser respetuosos y referirse a lo deportivo. Podemos quitar contenido ofensivo, discriminatorio o que exponga datos personales de terceros.</li>
+  </ul>
+
+  <h2 id="t7">7. Datos personales</h2>
+  <p>Tratamos tus datos de acuerdo con la Ley 25.326 de Protección de Datos Personales de la República Argentina.</p>
+  <ul>
+    <li><b>Qué guardamos:</b> tu nombre, mail y rol; un identificador de cada computadora donde iniciás sesión (para controlar la cantidad de computadoras por cuenta); el estado y vencimiento de tu cuenta; y, en las funciones compartidas de las cuentas institucionales, tus cortes, notas, comentarios y una “huella” del archivo de video (un código que permite comprobar que todos usan el mismo video, sin subir el video).</li>
+    <li><b>Para qué:</b> para darte acceso, controlar las licencias, hacer funcionar las funciones compartidas y responder tus consultas. No vendemos ni cedemos tus datos con fines comerciales.</li>
+    <li><b>Dónde:</b> en servidores de proveedores externos de bases de datos y autenticación, que pueden estar fuera de la Argentina. Tus proyectos y videos quedan en tu computadora.</li>
+    <li><b>Tus derechos:</b> podés pedir acceder, corregir o eliminar tus datos escribiendo a <a href="mailto:valeferrero4@gmail.com">valeferrero4@gmail.com</a>. La Agencia de Acceso a la Información Pública es el órgano de control de la Ley 25.326.</li>
+    <li>Si nos escribís por los formularios de este sitio, el mensaje sale desde tu propio correo; solo usamos esos datos para responderte.</li>
+  </ul>
+
+  <h2 id="t8">8. Propiedad intelectual</h2>
+  <p>RAV, su código, su diseño, su nombre y su logo nos pertenecen y están protegidos por la Ley 11.723 de Propiedad Intelectual y demás normas aplicables. Estos términos no te transfieren ningún derecho sobre ellos, salvo la licencia de uso del punto 2.</p>
+
+  <h2 id="t9">9. Software de terceros</h2>
+  <p>RAV incluye componentes de terceros, como VLC (reproducción de video), FFmpeg (recorte de clips) y Qt (interfaz), que se distribuyen bajo sus propias licencias de código abierto. Esas licencias se respetan y prevalecen sobre estos términos en lo que se refiere a esos componentes.</p>
+
+  <h2 id="t10">10. Garantía y responsabilidad</h2>
+  <ul>
+    <li>RAV se ofrece <b>“tal cual está”</b>. Trabajamos para que funcione bien, pero no garantizamos que esté libre de errores ni que sirva para un fin en particular.</li>
+    <li>Hacé copias de respaldo de tus proyectos y videos. No somos responsables por pérdida de datos, interrupciones, ni daños indirectos o lucro cesante derivados del uso o de la imposibilidad de usar RAV.</li>
+    <li>En la medida en que la ley lo permita, nuestra responsabilidad total se limita al monto que hayas pagado por RAV en los doce meses anteriores al hecho.</li>
+    <li>Descargá RAV solo desde este sitio. No respondemos por copias obtenidas de otras fuentes.</li>
+    <li>Nada de esto limita los derechos que te correspondan como consumidor según la Ley 24.240.</li>
+  </ul>
+
+  <h2 id="t11">11. Disponibilidad del servicio</h2>
+  <ul>
+    <li>RAV necesita conectarse a internet para iniciar sesión y verificar la cuenta. Sin conexión funciona durante un período limitado.</li>
+    <li>Los servidores pueden tener interrupciones o mantenimiento. Podemos cambiar, mejorar o discontinuar funciones; las versiones nuevas se publican en este sitio.</li>
+  </ul>
+
+  <h2 id="t12">12. Sugerencias y reportes</h2>
+  <p>Si nos mandás ideas, sugerencias o reportes, podemos usarlos para mejorar RAV sin que eso genere obligaciones ni pagos hacia vos.</p>
+
+  <h2 id="t13">13. Cambios en los términos</h2>
+  <p>Podemos actualizar estos términos. La versión vigente es siempre la publicada en esta página, con su fecha de actualización. Si los cambios son importantes, te avisaremos por mail o desde la aplicación. Seguir usando RAV después de un cambio implica aceptarlo.</p>
+
+  <h2 id="t14">14. Ley aplicable y contacto</h2>
+  <p>Estos términos se rigen por las leyes de la República Argentina. Ante cualquier controversia, las partes se someten a los tribunales ordinarios de la ciudad de Córdoba, sin perjuicio de los derechos que la ley de defensa del consumidor reconozca a los usuarios.</p>
+  <p>Consultas: <a href="mailto:valeferrero4@gmail.com">valeferrero4@gmail.com</a></p>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <div style="display:flex;align-items:center;gap:10px">
+      <div class="logo" style="width:26px;height:26px;border-radius:5px;font-size:10px">RAV</div>
+      <span>RAV | Referee Analytics &amp; Video</span>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:20px">
+      <a href="index.html#descargas">Descargas</a><a href="index.html#reportar">Contacto</a><a href="terminos.html">Términos y condiciones</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -136,6 +136,32 @@ form .btn{align-self:flex-start}
 footer{border-top:1px solid var(--line)}
 .foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding-top:28px;padding-bottom:28px;color:var(--muted);font-size:14px}
 .foot a{color:var(--muted)}
+
+/* secciones compactas (novedades) */
+.sec.compact{padding:56px 0}
+.compact .sec-head h2{font-size:30px}
+.rel-old{padding:0}
+.rel-old summary{list-style:none;cursor:pointer;display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding:14px 20px}
+.rel-old summary::-webkit-details-marker{display:none}
+.rel-old summary::after{content:"+";margin-left:auto;color:var(--muted);font-size:18px;line-height:1}
+.rel-old[open] summary::after{content:"–"}
+.rel-old .v{font-size:16px}
+.rel-old > :not(summary){margin:0 20px 16px}
+.older{display:flex;flex-direction:column;gap:8px}
+.older-title{margin:0 0 8px;color:var(--muted);font-size:14px}
+.older-wrap:not([hidden]){display:flex;flex-direction:column}
+.more{align-self:flex-start;background:none;border:0;padding:0;font:inherit;color:var(--accent);text-decoration:underline;cursor:pointer}
+.more:hover{color:var(--accent-hover)}
+
+/* en los formularios cada campo ocupa solo su alto (con flex:1 1 200px
+   en una columna, cada uno medía 200px y quedaban huecos) */
+form > .field{flex:none}
+#funciones .grid{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.rel-old{gap:0}
+
+/* aceptar terminos */
+.check{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--soft)}
+.check input{min-height:0;width:18px;height:18px;margin:2px 0 0;accent-color:var(--accent);flex:none}
 @media (max-width:600px){.sec{padding:64px 0}.report{padding:24px}.sec-head h2{font-size:32px}}
 </style>
 </head>
@@ -149,9 +175,9 @@ footer{border-top:1px solid var(--line)}
     </a>
     <div class="links">
       <a class="l" href="#funciones">Funciones</a>
-      <a class="l" href="#novedades">Novedades</a>
       <a class="l" href="#instalacion">Instalación</a>
-      <a class="l" href="#solicitar">Solicitar acceso</a>
+      <a class="l" href="#novedades">Novedades</a>
+      <a class="l" href="#solicitar">Solicitar usuario</a>
       <a class="l" href="#reportar">Reportar</a>
       <a class="btn btn-primary" href="#descargas" style="padding:10px 18px;min-height:0">Descargar</a>
     </div>
@@ -179,7 +205,43 @@ footer{border-top:1px solid var(--line)}
   </div>
 </section>
 
-<section id="descargas" class="band">
+<section id="funciones" class="band">
+  <div class="wrap sec">
+  <div class="sec-head">
+    <h2>Hecha para analizar arbitraje</h2>
+    <p>Del video del partido al informe, sin salir de la app.</p>
+  </div>
+  <div class="grid">
+    <div class="card">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#D4F23A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10"/></svg>
+      <h3>Tagging con teclado</h3>
+      <p>Marcá inicio y fin de cada evento con la misma tecla, con paneles de categorías que armás a tu medida. El video se maneja con el teclado, incluidas sus teclas de reproducción.</p>
+    </div>
+    <div class="card">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#D4F23A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h10M3 12h16M3 18h7"/><path d="M17 4v16" stroke-dasharray="2 2"/></svg>
+      <h3>Línea de tiempo por categoría</h3>
+      <p>Un carril por categoría con cada clip en su color: ves de un vistazo dónde está cada jugada, cuánto dura y cómo se cruzan. Doble click y saltás a esa jugada.</p>
+    </div>
+    <div class="card">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#D4F23A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M8.5 7.5L20 18M8.5 16.5L20 6"/></svg>
+      <h3>Clips</h3>
+      <p>Cada evento se guarda con lead y lag ajustables. Mirá todos los cortes de una categoría seguidos o descargá cualquiera como video aparte.</p>
+    </div>
+    <div class="card">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#D4F23A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 14h8M8 17h5"/></svg>
+      <h3>Playlist y Stats</h3>
+      <p>La playlist del partido en Word, con los conteos hechos solos, y las estadísticas completas en Excel.</p>
+    </div>
+    <div class="card">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#D4F23A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+      <h3>A tu manera</h3>
+      <p>En Preferencias elegís tus atajos de teclado, el salto, la velocidad y dónde se guardan los clips. Cada cuenta tiene las suyas.</p>
+    </div>
+  </div>
+  </div>
+</section>
+
+<section id="descargas">
   <div class="wrap sec">
     <div class="sec-head">
       <h2>Descargas</h2>
@@ -212,52 +274,12 @@ footer{border-top:1px solid var(--line)}
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v12M6 11l6 6 6-6M5 20h14"/></svg>Descargar</a>
       </div>
     </div>
-    <p class="note">¿No sabés qué Mac tenés? Menú Apple  › Acerca de esta Mac: si dice "Chip Apple M…", es la primera. · <a id="all-releases" href="#">Versiones anteriores</a></p>
+    <p class="note">¿No sabés qué Mac tenés? Menú Apple  › Acerca de esta Mac: si dice "Chip Apple M…", es la primera. · <a id="all-releases" href="#">Versiones anteriores</a><br>Al descargar y usar RAV aceptás los <a href="terminos.html">Términos y condiciones</a>.</p>
   </div>
 </section>
 
-<section id="funciones" class="wrap sec">
-  <div class="sec-head">
-    <h2>Hecha para analizar arbitraje</h2>
-    <p>Del video del partido al informe, sin salir de la app.</p>
-  </div>
-  <div class="grid">
-    <div class="card">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#D4F23A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10"/></svg>
-      <h3>Tagging con teclado</h3>
-      <p>Marcá inicio y fin de cada evento con la misma tecla, con paneles de categorías que armás a tu medida.</p>
-    </div>
-    <div class="card">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#D4F23A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h18M7 8v8M12 6v12M17 9v6"/></svg>
-      <h3>Timeline con marcadores</h3>
-      <p>Cada evento queda marcado con su color. Doble click y saltás directo a esa jugada.</p>
-    </div>
-    <div class="card">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#D4F23A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M8.5 7.5L20 18M8.5 16.5L20 6"/></svg>
-      <h3>Exportar clips</h3>
-      <p>Recortá cada evento con lead y lag ajustables y exportalo como clip independiente.</p>
-    </div>
-    <div class="card">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#D4F23A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 14h8M8 17h5"/></svg>
-      <h3>Playlist y Stats</h3>
-      <p>Generá la playlist en Word y PDF y las estadísticas del partido en Excel.</p>
-    </div>
-  </div>
-</section>
-
-<section id="novedades" class="band">
-  <div class="wrap sec split">
-    <div class="sec-head" style="margin:0">
-      <h2>Novedades</h2>
-      <p>Todo lo que cambió en cada versión.</p>
-    </div>
-    <div id="releases">
-      <div class="card rel"><p style="margin:0">Cargando versiones…</p></div>
-    </div>
-  </div>
-</section>
-
-<section id="instalacion" class="wrap sec">
+<section id="instalacion" class="band">
+  <div class="wrap sec">
   <div class="sec-head">
     <h2>Instalación</h2>
     <p>Tres pasos y estás analizando.</p>
@@ -270,11 +292,13 @@ footer{border-top:1px solid var(--line)}
     <div class="step"><span class="n">03</span><h3>Autorizala la primera vez</h3>
       <p>Como RAV es una app independiente, tu Mac o tu PC te va a pedir permiso para abrirla. Es una sola vez: <a href="#autorizar">mirá cómo hacerlo</a>.</p></div>
   </div>
+  </div>
+</section>
 
-  <div id="autorizar" class="auth">
-    <div class="sec-head" style="margin-bottom:24px">
-      <h3 class="auth-title">Si tu computadora no te deja abrirla</h3>
-      <p>Es normal y se resuelve en un minuto. Seguí los pasos de tu sistema.</p>
+  <section id="autorizar" class="wrap sec">
+    <div class="sec-head">
+      <h2>Si no abre</h2>
+      <p>Si tu computadora no te deja abrir RAV la primera vez, es normal y se resuelve en un minuto. Seguí los pasos de tu sistema.</p>
     </div>
     <div class="grid">
       <div class="card os" data-os="mac">
@@ -310,10 +334,21 @@ footer{border-top:1px solid var(--line)}
       </div>
     </div>
     <p class="note">¿Seguís trabado? <a href="#reportar">Escribinos</a> y te ayudamos.</p>
+  </section>
+
+<section id="novedades" class="band">
+  <div class="wrap sec compact split">
+    <div class="sec-head" style="margin:0">
+      <h2>Novedades</h2>
+      <p>Lo nuevo de la última versión.</p>
+    </div>
+    <div id="releases">
+      <div class="card rel"><p style="margin:0">Cargando versiones…</p></div>
+    </div>
   </div>
 </section>
 
-<section id="solicitar" class="wrap" style="padding-bottom:40px">
+<section id="solicitar" class="wrap" style="padding-top:88px;padding-bottom:40px">
   <div class="report">
     <div>
       <h2>Solicitá tu usuario</h2>
@@ -342,6 +377,7 @@ footer{border-top:1px solid var(--line)}
       </div>
       <div class="field"><label for="s-msg">Comentario (opcional)</label>
         <textarea id="s-msg" rows="3" placeholder="¿Cómo conociste RAV? ¿Para qué la vas a usar?"></textarea></div>
+      <label class="check"><input id="s-terms" type="checkbox" required> <span>Leí y acepto los <a href="terminos.html" target="_blank">Términos y condiciones</a>.</span></label>
       <button class="btn btn-primary" type="submit">Enviar solicitud</button>
       <p class="formmsg" id="signupmsg">Se abre tu correo con la solicitud lista para enviar.</p>
     </form>
@@ -351,8 +387,8 @@ footer{border-top:1px solid var(--line)}
 <section id="reportar" class="wrap" style="padding-bottom:88px">
   <div class="report">
     <div>
-      <h2>¿Encontraste un error o tenés una idea?</h2>
-      <p>Contanos qué pasó y con qué versión. Cada reporte ayuda a mejorar RAV.</p>
+      <h2>Errores y sugerencias</h2>
+      <p>¿Encontraste un error o tenés una idea? Contanos qué pasó y con qué versión. Cada reporte ayuda a mejorar RAV.</p>
     </div>
     <form id="report-form">
       <div class="fields">
@@ -379,7 +415,7 @@ footer{border-top:1px solid var(--line)}
       <span>RAV | Referee Analytics &amp; Video</span>
     </div>
     <div style="display:flex;flex-wrap:wrap;gap:20px">
-      <a href="#descargas">Descargas</a><a href="#novedades">Novedades</a><a href="#solicitar">Solicitar acceso</a><a href="#reportar">Contacto</a>
+      <a href="#descargas">Descargas</a><a href="#instalacion">Instalación</a><a href="#novedades">Novedades</a><a href="#solicitar">Solicitar usuario</a><a href="#reportar">Contacto</a><a href="terminos.html">Términos y condiciones</a>
     </div>
   </div>
 </footer>
@@ -447,16 +483,32 @@ async function loadReleases(){
     const list = (await r.json()).filter(x => !x.draft);
     if(!list.length) throw new Error("vacío");
     box.textContent = "";
+    // La ultima, completa; las anteriores, plegadas (version y fecha)
+    const older = el("div", "older");
     list.forEach((rel, i) => {
-      const card = el("article", "card rel");
-      const head = el("div", "rel-head");
-      head.appendChild(el("span", "v", "Versión " + rel.tag_name.replace(/^v/i,"")));
-      if(i === 0) head.appendChild(el("span", "pill", "Actual"));
-      head.appendChild(el("span", "d", fmtDate(rel.published_at)));
-      card.appendChild(head);
-      card.appendChild(notesToNodes(rel.body));
-      box.appendChild(card);
+      const v = "Versión " + rel.tag_name.replace(/^v/i,"");
+      if(i === 0){
+        const card = el("article", "card rel");
+        const head = el("div", "rel-head");
+        head.appendChild(el("span", "v", v));
+        head.appendChild(el("span", "pill", "Actual"));
+        head.appendChild(el("span", "d", fmtDate(rel.published_at)));
+        card.appendChild(head);
+        card.appendChild(notesToNodes(rel.body));
+        box.appendChild(card);
+      } else {
+        const d = el("details", "card rel rel-old");
+        const s = el("summary", "rel-head");
+        s.appendChild(el("span", "v", v));
+        s.appendChild(el("span", "d", fmtDate(rel.published_at)));
+        d.appendChild(s);
+        const body = el("div"); body.appendChild(notesToNodes(rel.body)); d.appendChild(body);
+        older.appendChild(d);
+      }
     });
+    // Las anteriores quedan ocultas hasta tocar "Ver historial completo"
+    const hist = el("div", "older-wrap"); hist.hidden = true;
+    if(older.children.length){ hist.appendChild(el("p", "older-title", "Versiones anteriores")); hist.appendChild(older); }
     const last = list[0], v = last.tag_name.replace(/^v/i,"");
     document.getElementById("hero-badge").textContent = `Versión ${v} disponible · Mac y Windows`;
     document.getElementById("dl-sub").textContent = `Última versión: ${v} · publicada el ${fmtDate(last.published_at)}.`;
@@ -467,8 +519,16 @@ async function loadReleases(){
       const btn = document.querySelector(`[data-file="${key}"]`);
       if(btn) setButton(btn, !!asset);
     }
-    const more = el("a", null, "Ver historial completo"); more.href = base; more.style.alignSelf = "flex-start";
-    box.appendChild(more);
+    box.appendChild(hist);
+    if(older.children.length){
+      const more = el("button", "more", "Ver historial completo");
+      more.type = "button";
+      more.addEventListener("click", () => {
+        hist.hidden = !hist.hidden;
+        more.textContent = hist.hidden ? "Ver historial completo" : "Ocultar historial";
+      });
+      box.appendChild(more);
+    }
   }catch(e){
     box.textContent = "";
     const c = el("div", "card rel"); const p = el("p", null, "Todavía no hay versiones publicadas. ¡Muy pronto!"); p.style.margin="0";
