@@ -79,6 +79,13 @@ nav{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between
 .dl .name{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:600}
 .dl .meta{color:var(--muted);font-size:14px}
 .dl .btn{margin-top:auto}
+/* Al pasar el mouse (o con el teclado) la tarjeta se ilumina y su boton
+   pasa a lima */
+.dl{transition:border-color .2s,background-color .2s,transform .2s,box-shadow .2s}
+.dl .btn{transition:background-color .2s,color .2s,border-color .2s}
+.dl:hover,.dl:focus-within{border-color:var(--accent);background:var(--card2);transform:translateY(-3px);box-shadow:0 14px 34px rgba(0,0,0,.35)}
+.dl:hover .btn,.dl:focus-within .btn{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+@media (prefers-reduced-motion:reduce){.dl,.dl .btn{transition:none}.dl:hover,.dl:focus-within{transform:none}}
 .note{margin:20px 0 0;color:var(--muted);font-size:14px}
 
 /* novedades */
@@ -248,12 +255,12 @@ form > .field{flex:none}
       <p id="dl-sub">Elegí la versión para tu computadora.</p>
     </div>
     <div class="grid">
-      <div class="card dl rec">
+      <div class="card dl">
         <div class="dl-top">
           <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#F2F2EE" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/></svg>
         </div>
         <div><div class="name">Mac con chip Apple</div><div class="meta" data-meta="mac-arm">M1, M2, M3 o posterior</div></div>
-        <a class="btn btn-primary" data-file="mac-arm" href="#">
+        <a class="btn btn-ghost" data-file="mac-arm" href="#">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v12M6 11l6 6 6-6M5 20h14"/></svg>Descargar</a>
       </div>
       <div class="card dl">
