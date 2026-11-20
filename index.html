@@ -229,6 +229,8 @@ form > .field{flex:none}
 .msg.err{color:#FF8A80}
 .msg.ok{color:var(--accent)}
 .pay{display:flex;flex-direction:column;gap:12px}
+.legal{margin:-4px 0 0;font-size:13px;line-height:1.5;color:var(--muted);border-left:2px solid var(--accent);padding-left:10px}
+.legal a{color:var(--soft)}
 .renew-box{display:flex;flex-wrap:wrap;align-items:center;gap:12px;border-top:1px solid var(--line2);padding-top:16px;margin-top:4px;color:var(--soft);font-size:15px}
 .renew-box .btn{min-height:40px;padding:8px 16px}
 .pay .btn{align-self:stretch}
@@ -466,13 +468,13 @@ form > .field{flex:none}
         <p class="msg" id="n-msg" aria-live="polite"></p>
         <div class="renew-box">
           <span>¿Ya tenés cuenta?</span>
-          <button class="btn btn-ghost" type="button" id="go-renew">Renovar</button>
+          <button class="btn btn-ghost" type="button" id="go-renew">Suscribite acá</button>
         </div>
       </form>
 
       <form id="pane-login" class="pane" style="flex:none" hidden>
-        <h3 style="margin:0;font-size:22px">Renovar</h3>
-        <p class="msg" style="color:var(--soft)">Ingresá con el mail y la contraseña de tu cuenta de RAV.</p>
+        <h3 style="margin:0;font-size:22px">Suscribirme</h3>
+        <p class="msg" style="color:var(--soft)">Ingresá con el mail y la contraseña de tu cuenta de RAV para activar tu suscripción.</p>
         <div class="field"><label for="l-mail">Mail</label>
           <input id="l-mail" type="email" autocomplete="email" required></div>
         <div class="field"><label for="l-pass">Contraseña</label>
@@ -493,7 +495,8 @@ form > .field{flex:none}
           <input id="p-mail" type="email" autocomplete="email"></div>
         <p class="hint">Si pagás con otra cuenta de Mercado Pago, poné ese mail.</p>
         <button class="btn btn-primary" type="button" id="btn-sub"><span>Suscribirme · AR$ <span data-price>10.000</span> por mes</span></button>
-        <p class="hint">Se cobra solo cada mes con tu tarjeta de crédito o débito, a través de Mercado Pago. La cancelás cuando quieras desde Mercado Pago o con el Botón de baja.</p>
+        <p class="hint">Se cobra solo cada mes con tu tarjeta de crédito o débito, a través de Mercado Pago. La cancelás cuando quieras.</p>
+        <p class="legal">Tenés 10 días desde el pago para arrepentirte y te devolvemos lo pagado. <a href="#baja">Botón de arrepentimiento</a> · <a href="#baja">Botón de baja</a> · <a href="terminos.html#t4" target="_blank">Condiciones</a></p>
         <p class="msg" id="p-msg" aria-live="polite"></p>
         <a class="btn btn-ghost" href="#descargas">Descargar RAV</a>
       </div>
@@ -730,8 +733,8 @@ function showPay(email, title, text){
 }
 
 const SIGNUP_ERRORS = {
-  user_already_exists: "Ya existe una cuenta con ese mail. Tocá \"Renovar\" para ingresar.",
-  email_exists: "Ya existe una cuenta con ese mail. Tocá \"Renovar\" para ingresar.",
+  user_already_exists: "Ya existe una cuenta con ese mail. Tocá \"Suscribite acá\" para ingresar.",
+  email_exists: "Ya existe una cuenta con ese mail. Tocá \"Suscribite acá\" para ingresar.",
   weak_password: "La contraseña es muy débil: usá al menos 8 caracteres.",
   email_address_invalid: "Ese mail no es válido.",
   validation_failed: "Revisá el mail: no parece válido.",
@@ -770,7 +773,7 @@ $("pane-login").addEventListener("submit", async ev => {
     const r = await api("/auth/v1/token?grant_type=password", {email, password: $("l-pass").value});
     if (!r.ok || !r.data.access_token) return say("l-msg", (r.data.error_code || r.data.code) === "email_not_confirmed" ? "Todavía no confirmaste tu mail: tocá el link que te mandamos (revisá spam)." : "Mail o contraseña incorrectos.", "err");
     session = r.data;
-    showPay(email, "Renovar RAV", "Suscribite para seguir usando RAV. Si todavía te quedan días, se respetan.");
+    showPay(email, "Suscribirme", "Activá tu suscripción para seguir usando RAV. Si todavía te quedan días gratis o pagos, se respetan.");
   } catch(e){ say("l-msg", "No se pudo conectar. Revisá tu conexión y probá de nuevo.", "err"); }
   finally{ busy(btn, false); }
 });
