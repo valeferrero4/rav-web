@@ -169,6 +169,26 @@ form > .field{flex:none}
 /* aceptar terminos */
 .check{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--soft)}
 .check input{min-height:0;width:18px;height:18px;margin:2px 0 0;accent-color:var(--accent);flex:none}
+/* cuenta y pago */
+.plan{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.plan .price{font-family:'Space Grotesk',sans-serif;font-size:34px;font-weight:700;letter-spacing:-.6px}
+.plan .per{color:var(--muted);font-size:15px}
+.tabs{display:flex;gap:6px;border-bottom:1px solid var(--line2)}
+.tab{background:none;border:0;border-bottom:2px solid transparent;color:var(--muted);font:inherit;font-weight:600;font-size:15px;padding:10px 4px;margin-bottom:-1px;cursor:pointer;min-height:44px}
+.tab[aria-selected="true"]{color:var(--text);border-bottom-color:var(--accent)}
+.pane[hidden],.pay[hidden],.tabs[hidden],.banner[hidden]{display:none}
+.msg{margin:0;font-size:14px;color:var(--muted)}
+.msg.err{color:#FF8A80}
+.msg.ok{color:var(--accent)}
+.pay{display:flex;flex-direction:column;gap:12px}
+.renew-box{display:flex;flex-wrap:wrap;align-items:center;gap:12px;border-top:1px solid var(--line2);padding-top:16px;margin-top:4px;color:var(--soft);font-size:15px}
+.renew-box .btn{min-height:40px;padding:8px 16px}
+.pay .btn{align-self:stretch}
+.pay h3{margin:0;font-size:22px}
+.pay p{margin:0;color:var(--soft);font-size:15px}
+.banner{margin:0 0 20px;padding:14px 18px;border-radius:10px;border:1px solid var(--accent);background:rgba(212,242,58,.08);color:var(--text);font-size:15px}
+.banner.warn{border-color:#FFB74D;background:rgba(255,183,77,.08)}
+.hint{font-size:13px;color:var(--muted);margin:-8px 0 0}
 @media (max-width:600px){.sec{padding:64px 0}.report{padding:24px}.sec-head h2{font-size:32px}}
 </style>
 </head>
@@ -184,7 +204,7 @@ form > .field{flex:none}
       <a class="l" href="#funciones">Funciones</a>
       <a class="l" href="#instalacion">Instalación</a>
       <a class="l" href="#novedades">Novedades</a>
-      <a class="l" href="#solicitar">Solicitar usuario</a>
+      <a class="l" href="#cuenta">Crear cuenta</a>
       <a class="l" href="#reportar">Reportar</a>
       <a class="btn btn-primary" href="#descargas" style="padding:10px 18px;min-height:0">Descargar</a>
     </div>
@@ -201,6 +221,7 @@ form > .field{flex:none}
       <a class="btn btn-primary" href="#descargas">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v12M6 11l6 6 6-6M5 20h14"/></svg>
         Descargar gratis</a>
+      <a class="btn btn-ghost" href="#cuenta">Probar 1 mes gratis</a>
       <a class="btn btn-ghost" href="#funciones">Ver funciones</a>
     </div>
   </div>
@@ -354,39 +375,73 @@ form > .field{flex:none}
   </div>
 </section>
 
-<section id="solicitar" class="wrap" style="padding-top:88px;padding-bottom:40px">
+<section id="cuenta" class="wrap" style="padding-top:88px;padding-bottom:40px">
+  <span id="solicitar"></span>
+  <div id="pay-banner" class="banner" hidden></div>
   <div class="report">
     <div>
-      <h2>Solicitá tu usuario</h2>
-      <p>Completá tus datos y te damos de alta en RAV. Te vamos a responder por mail.</p>
+      <h2>Tu cuenta de RAV</h2>
+      <p>Creá tu cuenta y usá RAV gratis durante un mes, sin tarjeta. Después seguís con el plan Particular.</p>
+      <div class="plan"><span class="price">AR$ <span data-price>10.000</span></span><span class="per">por mes</span></div>
       <ul class="perks">
-        <li>Te avisamos cuando tu usuario esté listo</li>
-        <li>Recibís las novedades de cada versión</li>
+        <li>1 mes gratis al crear tu cuenta</li>
+        <li>Renovás con Mercado Pago: suscripción automática, o mes a mes</li>
+        <li>Usás la misma cuenta para ingresar a RAV</li>
       </ul>
     </div>
-    <form id="signup-form">
-      <div class="fields">
-        <div class="field"><label for="s-nombre">Nombre y apellido</label>
-          <input id="s-nombre" type="text" autocomplete="name" required></div>
-        <div class="field"><label for="s-mail">Mail</label>
-          <input id="s-mail" type="email" autocomplete="email" required></div>
+
+    <div style="flex:999 1 460px;min-width:0;display:flex;flex-direction:column;gap:20px">
+
+      <form id="pane-new" class="pane" style="flex:none">
+        <h3 style="margin:0;font-size:22px">Crear cuenta</h3>
+        <div class="field"><label for="n-nombre">Nombre y apellido</label>
+          <input id="n-nombre" type="text" autocomplete="name" required></div>
+        <div class="field"><label for="n-mail">Mail</label>
+          <input id="n-mail" type="email" autocomplete="email" required></div>
+        <div class="fields">
+          <div class="field"><label for="n-pass">Contraseña</label>
+            <input id="n-pass" type="password" autocomplete="new-password" minlength="8" required></div>
+          <div class="field"><label for="n-pass2">Repetir contraseña</label>
+            <input id="n-pass2" type="password" autocomplete="new-password" minlength="8" required></div>
+        </div>
+        <p class="hint">Al menos 8 caracteres. Con este mail y contraseña vas a ingresar a RAV.</p>
+        <label class="check"><input id="n-terms" type="checkbox" required> <span>Leí y acepto los <a href="terminos.html" target="_blank">Términos y condiciones</a>.</span></label>
+        <button class="btn btn-primary" type="submit">Crear cuenta · 1 mes gratis</button>
+        <p class="msg" id="n-msg" aria-live="polite"></p>
+        <div class="renew-box">
+          <span>¿Ya tenés cuenta?</span>
+          <button class="btn btn-ghost" type="button" id="go-renew">Renovar</button>
+        </div>
+      </form>
+
+      <form id="pane-login" class="pane" style="flex:none" hidden>
+        <h3 style="margin:0;font-size:22px">Renovar</h3>
+        <p class="msg" style="color:var(--soft)">Ingresá con el mail y la contraseña de tu cuenta de RAV.</p>
+        <div class="field"><label for="l-mail">Mail</label>
+          <input id="l-mail" type="email" autocomplete="email" required></div>
+        <div class="field"><label for="l-pass">Contraseña</label>
+          <input id="l-pass" type="password" autocomplete="current-password" required></div>
+        <button class="btn btn-primary" type="submit">Continuar</button>
+        <p class="msg" id="l-msg" aria-live="polite"></p>
+        <div class="renew-box">
+          <span>¿No tenés cuenta?</span>
+          <button class="btn btn-ghost" type="button" id="go-new">Crear cuenta · 1 mes gratis</button>
+        </div>
+      </form>
+
+      <div id="pane-pay" class="pay" hidden>
+        <h3 id="pay-title">¡Listo!</h3>
+        <p id="pay-text"></p>
+        <div class="field" style="flex:none"><label for="p-mail">Mail de tu cuenta de Mercado Pago</label>
+          <input id="p-mail" type="email" autocomplete="email"></div>
+        <p class="hint">Si pagás con otra cuenta de Mercado Pago, poné ese mail.</p>
+        <button class="btn btn-primary" type="button" id="btn-sub">Suscripción automática · AR$ <span data-price>10.000</span> por mes</button>
+        <button class="btn btn-ghost" type="button" id="btn-once">Mes a mes · pagar solo este mes</button>
+        <p class="hint"><b>Suscripción automática:</b> se cobra sola cada mes con tarjeta y no te tenés que acordar; la cancelás cuando quieras. <b>Mes a mes:</b> pagás solo este mes con saldo de Mercado Pago, débito o crédito; no se renueva y el mes que viene volvés a renovar acá.</p>
+        <p class="msg" id="p-msg" aria-live="polite"></p>
+        <a class="btn btn-ghost" href="#descargas">Descargar RAV</a>
       </div>
-      <div class="fields">
-        <div class="field"><label for="s-tel">Teléfono (opcional)</label>
-          <input id="s-tel" type="tel" autocomplete="tel"></div>
-        <div class="field"><label for="s-rol">Rol</label>
-          <select id="s-rol"><option>Árbitro</option><option>Evaluador / Coach de árbitros</option><option>Analista de video</option><option>Entrenador</option><option>Otro</option></select></div>
-      </div>
-      <div class="fields">
-        <div class="field"><label for="s-pc">Computadora</label>
-          <select id="s-pc"><option>Mac con chip Apple</option><option>Mac Intel</option><option>Windows</option></select></div>
-      </div>
-      <div class="field"><label for="s-msg">Comentario (opcional)</label>
-        <textarea id="s-msg" rows="3" placeholder="¿Cómo conociste RAV? ¿Para qué la vas a usar?"></textarea></div>
-      <label class="check"><input id="s-terms" type="checkbox" required> <span>Leí y acepto los <a href="terminos.html" target="_blank">Términos y condiciones</a>.</span></label>
-      <button class="btn btn-primary" type="submit">Enviar solicitud</button>
-      <p class="formmsg" id="signupmsg">Se abre tu correo con la solicitud lista para enviar.</p>
-    </form>
+    </div>
   </div>
 </section>
 
@@ -412,6 +467,20 @@ form > .field{flex:none}
     </form>
   </div>
 </section>
+<section id="baja" class="wrap" style="padding-bottom:88px">
+  <div class="report">
+    <div>
+      <h2>Baja y arrepentimiento</h2>
+      <p>Podés cancelar tu suscripción cuando quieras: no se te cobra más y seguís usando RAV hasta el final del mes ya pagado. Y si pagaste hace 10 días o menos, podés arrepentirte y te devolvemos el dinero.</p>
+    </div>
+    <div style="flex:999 1 460px;min-width:0;display:flex;flex-direction:column;gap:14px;justify-content:center">
+      <a class="btn btn-primary" id="btn-baja" href="https://www.mercadopago.com.ar/subscriptions" target="_blank" rel="noopener">Botón de baja · cancelar en Mercado Pago</a>
+      <p class="hint" style="margin:0">Se abre Mercado Pago → Tus suscripciones → RAV → Cancelar. Si no la encontrás, <a id="baja-mail" href="#">pedinos la baja por mail</a>.</p>
+      <a class="btn btn-ghost" id="btn-arrep" href="#">Botón de arrepentimiento</a>
+      <p class="hint" style="margin:0">Dentro de los 10 días corridos desde el pago (Ley 24.240, art. 34). Se abre tu correo con el pedido listo.</p>
+    </div>
+  </div>
+</section>
 </main>
 
 <footer>
@@ -421,7 +490,7 @@ form > .field{flex:none}
       <span>RAV | Referee Analytics &amp; Video</span>
     </div>
     <div style="display:flex;flex-wrap:wrap;gap:20px">
-      <a href="#descargas">Descargas</a><a href="#instalacion">Instalación</a><a href="#novedades">Novedades</a><a href="#solicitar">Solicitar usuario</a><a href="#reportar">Contacto</a><a href="terminos.html">Términos y condiciones</a>
+      <a href="#descargas">Descargas</a><a href="#instalacion">Instalación</a><a href="#novedades">Novedades</a><a href="#cuenta">Crear cuenta</a><a href="#reportar">Contacto</a><a href="terminos.html">Términos y condiciones</a><a href="#baja">Botón de baja</a><a href="#baja">Botón de arrepentimiento</a>
     </div>
   </div>
 </footer>
@@ -564,24 +633,132 @@ for (const b of document.querySelectorAll("[data-copy]")){
   });
 }
 
-// Solicitud de usuario: abre el correo con los datos completos
-document.getElementById("signup-form").addEventListener("submit", ev => {
-  ev.preventDefault();
-  const v = id => document.getElementById(id).value.trim();
-  const nombre = v("s-nombre");
-  const subject = `[RAV] Solicitud de usuario - ${nombre}`;
-  const body =
-`Nombre y apellido: ${nombre}
-Mail: ${v("s-mail")}
-Teléfono: ${v("s-tel") || "-"}
-Rol: ${v("s-rol")}
-Computadora: ${v("s-pc")}
+// =================== Cuenta y pago ===================
+// Servidor de cuentas de RAV (el mismo que usa la app). La clave
+// "publishable" es publica por diseño: sola no permite leer ni modificar nada.
+const SUPABASE_URL = "https://eqzcmhhysexbwzdoxauu.supabase.co";
+const SUPABASE_KEY = "sb_publishable_Z65iHxAz8QdKUuNamv_m7Q_1UR9D6S8";
+let session = null;   // sesion de quien creo la cuenta o ingreso (solo en memoria)
 
-Comentario:
-${v("s-msg") || "-"}`;
-  location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  document.getElementById("signupmsg").textContent = "Si no se abrió tu correo, mandá estos datos a " + EMAIL;
+async function api(path, body, token){
+  const headers = {"apikey": SUPABASE_KEY, "Content-Type": "application/json"};
+  if (token) headers["Authorization"] = "Bearer " + token;
+  const r = await fetch(SUPABASE_URL + path, {method: "POST", headers, body: JSON.stringify(body)});
+  let data = null; try { data = await r.json(); } catch(e) {}
+  return {ok: r.ok, status: r.status, data: data || {}};
+}
+const $ = id => document.getElementById(id);
+function say(id, text, kind){ const m = $(id); m.textContent = text; m.className = "msg" + (kind ? " " + kind : ""); }
+function busy(btn, on, text){ if(on){ btn.dataset.label = btn.innerHTML; btn.textContent = text; btn.disabled = true; } else { if (btn.dataset.label) btn.innerHTML = btn.dataset.label; btn.disabled = false; } }
+
+function showForm(renew){
+  $("pane-new").hidden = renew; $("pane-login").hidden = !renew;
+  (renew ? $("l-mail") : $("n-nombre")).focus();
+}
+$("go-renew").addEventListener("click", () => showForm(true));
+$("go-new").addEventListener("click", () => showForm(false));
+
+function showPay(email, title, text){
+  $("pane-new").hidden = true; $("pane-login").hidden = true;
+  $("pay-title").textContent = title; $("pay-text").textContent = text;
+  $("p-mail").value = email; $("pane-pay").hidden = false;
+}
+
+const SIGNUP_ERRORS = {
+  user_already_exists: "Ya existe una cuenta con ese mail. Tocá \"Renovar\" para ingresar.",
+  email_exists: "Ya existe una cuenta con ese mail. Tocá \"Renovar\" para ingresar.",
+  weak_password: "La contraseña es muy débil: usá al menos 8 caracteres.",
+  email_address_invalid: "Ese mail no es válido.",
+  validation_failed: "Revisá el mail: no parece válido.",
+  over_request_rate_limit: "Demasiados intentos. Esperá unos minutos y probá de nuevo.",
+  signup_disabled: "Por ahora no se pueden crear cuentas. Escribinos.",
+};
+
+$("pane-new").addEventListener("submit", async ev => {
+  ev.preventDefault();
+  const email = $("n-mail").value.trim(), pass = $("n-pass").value;
+  if (pass.length < 8) return say("n-msg", "La contraseña tiene que tener al menos 8 caracteres.", "err");
+  if (pass !== $("n-pass2").value) return say("n-msg", "Las contraseñas no coinciden.", "err");
+  const btn = ev.submitter || ev.target.querySelector("button[type=submit]");
+  busy(btn, true, "Creando cuenta…"); say("n-msg", "");
+  try{
+    const r = await api("/auth/v1/signup", {email, password: pass, data: {full_name: $("n-nombre").value.trim()}});
+    if (!r.ok) return say("n-msg", SIGNUP_ERRORS[r.data.error_code || r.data.code] || "No se pudo crear la cuenta. Revisá los datos.", "err");
+    if (!r.data.access_token){
+      const u = r.data.user || r.data;
+      if (u.identities && u.identities.length === 0) return say("n-msg", SIGNUP_ERRORS.user_already_exists, "err");
+      return say("n-msg", "¡Listo! Te mandamos un mail para confirmar tu cuenta. Después ingresá en RAV con tu mail y contraseña.", "ok");
+    }
+    session = r.data;
+    showPay(email, "¡Tu cuenta está lista!",
+      "Tenés un mes gratis. Descargá RAV e ingresá con tu mail y contraseña. Si querés, dejá el pago listo ahora: el mes que pagues se suma al mes gratis.");
+  } catch(e){ say("n-msg", "No se pudo conectar. Revisá tu conexión y probá de nuevo.", "err"); }
+  finally{ busy(btn, false); }
 });
+
+$("pane-login").addEventListener("submit", async ev => {
+  ev.preventDefault();
+  const email = $("l-mail").value.trim();
+  const btn = ev.submitter || ev.target.querySelector("button[type=submit]");
+  busy(btn, true, "Ingresando…"); say("l-msg", "");
+  try{
+    const r = await api("/auth/v1/token?grant_type=password", {email, password: $("l-pass").value});
+    if (!r.ok || !r.data.access_token) return say("l-msg", "Mail o contraseña incorrectos.", "err");
+    session = r.data;
+    showPay(email, "Renovar RAV", "Elegí cómo renovar. Si todavía te quedan días, el mes que pagás se suma a lo que te queda.");
+  } catch(e){ say("l-msg", "No se pudo conectar. Revisá tu conexión y probá de nuevo.", "err"); }
+  finally{ busy(btn, false); }
+});
+
+async function goPay(once, btn){
+  if (!session) return say("p-msg", "Ingresá de nuevo para pagar.", "err");
+  const payer = $("p-mail").value.trim();
+  if (!payer) return say("p-msg", "Poné el mail de tu cuenta de Mercado Pago.", "err");
+  busy(btn, true, "Abriendo Mercado Pago…"); say("p-msg", "");
+  try{
+    const body = {payer_email: payer}; if (once) body.action = "pay_once";
+    const r = await api("/functions/v1/mp-suscribir", body, session.access_token);
+    if (r.data.already_active) return say("p-msg", "Ya tenés una suscripción activa: no hace falta pagar de nuevo.", "ok");
+    if (r.ok && r.data.init_point){ location.href = r.data.init_point; return; }
+    if (r.status === 401) return say("p-msg", "Tu sesión venció. Volvé a ingresar.", "err");
+    say("p-msg", "No se pudo generar el pago. Revisá el mail de Mercado Pago y probá de nuevo.", "err");
+  } catch(e){ say("p-msg", "No se pudo conectar. Revisá tu conexión y probá de nuevo.", "err"); }
+  finally{ busy(btn, false); }
+}
+$("btn-sub").addEventListener("click", ev => goPay(false, ev.currentTarget));
+$("btn-once").addEventListener("click", ev => goPay(true, ev.currentTarget));
+
+// Precio vigente: lo da el servidor (secreto MP_PRICE en Supabase), asi se
+// cambia sin tocar la web. Si no responde, queda el que esta escrito.
+fetch(SUPABASE_URL + "/functions/v1/mp-suscribir")
+  .then(r => r.ok ? r.json() : null)
+  .then(d => {
+    if (!d || !(d.price > 0)) return;
+    const txt = Number(d.price).toLocaleString("es-AR", {maximumFractionDigits: 2});
+    for (const e of document.querySelectorAll("[data-price]")) e.textContent = txt;
+  })
+  .catch(() => {});
+
+// Vuelta desde Mercado Pago (?pago=...)
+(function(){
+  const pago = new URLSearchParams(location.search).get("pago");
+  const texts = {
+    ok: ["¡Pago recibido! Abrí RAV e ingresá con tu mail y contraseña (si RAV ya estaba abierto, tocá \"Ya pagué, verificar\").", ""],
+    suscripcion: ["¡Listo! Si se aprobó el pago, tu suscripción ya está activa. Abrí RAV e ingresá con tu mail y contraseña (si RAV ya estaba abierto, tocá \"Ya pagué, verificar\").", ""],
+    pendiente: ["Tu pago quedó pendiente (por ejemplo, en efectivo). Cuando se acredite, RAV se habilita solo.", "warn"],
+    error: ["El pago no se completó. Podés intentarlo de nuevo con otro medio.", "warn"],
+  };
+  if (!pago || !texts[pago]) return;
+  const b = $("pay-banner"); b.textContent = texts[pago][0];
+  if (texts[pago][1]) b.classList.add(texts[pago][1]);
+  b.hidden = false;
+  $("cuenta").scrollIntoView();
+  history.replaceState(null, "", location.pathname + "#cuenta");
+})();
+
+// Baja y arrepentimiento por mail
+document.getElementById("baja-mail").href = `mailto:${EMAIL}?subject=${encodeURIComponent("[RAV] Pedido de baja de suscripción")}&body=${encodeURIComponent("Quiero dar de baja mi suscripción a RAV.\n\nMail de mi cuenta de RAV: \nMail de Mercado Pago (si es otro): ")}`;
+document.getElementById("btn-arrep").href = `mailto:${EMAIL}?subject=${encodeURIComponent("[RAV] Botón de arrepentimiento")}&body=${encodeURIComponent("Quiero arrepentirme de la contratación de RAV y que me devuelvan lo pagado (Ley 24.240, art. 34).\n\nMail de mi cuenta de RAV: \nFecha del pago: \nMail de Mercado Pago (si es otro): ")}`;
 
 // Reportes: abre el correo con todo completo
 document.getElementById("report-form").addEventListener("submit", ev => {
