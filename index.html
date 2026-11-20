@@ -88,6 +88,10 @@ nav{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between
 }
 
 header nav.wrap{padding-top:12px;padding-bottom:12px}
+.links a.ig{display:inline-flex;align-items:center;gap:8px}
+.links a.ig span{display:none}
+.ig-foot{display:inline-flex;align-items:center;gap:6px;margin-left:10px;text-decoration:none}
+.ig-foot:hover{color:var(--text)}
 /* menu en celular */
 .menu-btn{display:none;background:none;border:1px solid var(--line2);color:var(--text);border-radius:10px;width:44px;height:44px;align-items:center;justify-content:center;cursor:pointer}
 @media (max-width:860px){
@@ -97,6 +101,7 @@ header nav.wrap{padding-top:12px;padding-bottom:12px}
   .links{position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:rgba(14,15,16,.98);border-bottom:1px solid var(--line);padding:8px 16px 16px;display:none}
   .links.open{display:flex}
   .links a.l{padding:14px 8px;font-size:17px;border-bottom:1px solid var(--line)}
+  .links a.ig span{display:inline}
   .links .btn{display:none}
   .nav-right{display:flex;align-items:center;gap:8px}
   .nav-right .btn{padding:10px 16px;min-height:44px}
@@ -255,6 +260,7 @@ form > .field{flex:none}
       <a class="l" href="#novedades">Novedades</a>
       <a class="l" href="#cuenta">Crear cuenta</a>
       <a class="l" href="#reportar">Reportar</a>
+      <a class="l ig" href="https://www.instagram.com/ravreferee/" target="_blank" rel="noopener" aria-label="Instagram de RAV"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/></svg><span>Instagram</span></a>
       <a class="btn btn-primary" href="#descargas" style="padding:10px 18px;min-height:0">Descargar</a>
     </div>
   </nav>
@@ -538,6 +544,7 @@ form > .field{flex:none}
     <div style="display:flex;align-items:center;gap:10px">
       <div class="logo" style="width:26px;height:26px;border-radius:5px;font-size:10px">RAV</div>
       <span>RAV | Referee Analytics &amp; Video</span>
+      <a class="ig-foot" href="https://www.instagram.com/ravreferee/" target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/></svg>@ravreferee</a>
     </div>
     <div style="display:flex;flex-wrap:wrap;gap:20px">
       <a href="#descargas">Descargas</a><a href="#instalacion">Instalación</a><a href="#novedades">Novedades</a><a href="#cuenta">Crear cuenta</a><a href="#reportar">Contacto</a><a href="terminos.html">Términos y condiciones</a><a href="#baja">Botón de baja</a><a href="#baja">Botón de arrepentimiento</a>
