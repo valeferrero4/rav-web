@@ -479,6 +479,7 @@ form > .field{flex:none}
           <input id="l-pass" type="password" autocomplete="current-password" required></div>
         <button class="btn btn-primary" type="submit">Continuar</button>
         <p class="msg" id="l-msg" aria-live="polite"></p>
+        <a href="restablecer.html" style="font-size:14px;align-self:flex-start">¿Olvidaste tu contraseña?</a>
         <div class="renew-box">
           <span>¿No tenés cuenta?</span>
           <button class="btn btn-ghost" type="button" id="go-new">Crear cuenta · 1 mes gratis</button>
@@ -747,12 +748,12 @@ $("pane-new").addEventListener("submit", async ev => {
   const btn = ev.submitter || ev.target.querySelector("button[type=submit]");
   busy(btn, true, "Creando cuenta…"); say("n-msg", "");
   try{
-    const r = await api("/auth/v1/signup", {email, password: pass, data: {full_name: $("n-nombre").value.trim()}});
+    const r = await api("/auth/v1/signup?redirect_to=" + encodeURIComponent("https://ravreferee.com/"), {email, password: pass, data: {full_name: $("n-nombre").value.trim()}});
     if (!r.ok) return say("n-msg", SIGNUP_ERRORS[r.data.error_code || r.data.code] || "No se pudo crear la cuenta. Revisá los datos.", "err");
     if (!r.data.access_token){
       const u = r.data.user || r.data;
       if (u.identities && u.identities.length === 0) return say("n-msg", SIGNUP_ERRORS.user_already_exists, "err");
-      return say("n-msg", "¡Listo! Te mandamos un mail para confirmar tu cuenta. Después ingresá en RAV con tu mail y contraseña.", "ok");
+      return say("n-msg", "¡Casi listo! Te mandamos un mail a " + email + ": tocá el link para confirmar tu cuenta (revisá también spam). Después ingresá en RAV con tu mail y contraseña: tenés un mes gratis.", "ok");
     }
     session = r.data;
     showPay(email, "¡Tu cuenta está lista!",
@@ -768,7 +769,7 @@ $("pane-login").addEventListener("submit", async ev => {
   busy(btn, true, "Ingresando…"); say("l-msg", "");
   try{
     const r = await api("/auth/v1/token?grant_type=password", {email, password: $("l-pass").value});
-    if (!r.ok || !r.data.access_token) return say("l-msg", "Mail o contraseña incorrectos.", "err");
+    if (!r.ok || !r.data.access_token) return say("l-msg", (r.data.error_code || r.data.code) === "email_not_confirmed" ? "Todavía no confirmaste tu mail: tocá el link que te mandamos (revisá spam)." : "Mail o contraseña incorrectos.", "err");
     session = r.data;
     showPay(email, "Renovar RAV", "Elegí cómo renovar. Si todavía te quedan días, el mes que pagás se suma a lo que te queda.");
   } catch(e){ say("l-msg", "No se pudo conectar. Revisá tu conexión y probá de nuevo.", "err"); }
@@ -803,6 +804,28 @@ fetch(SUPABASE_URL + "/functions/v1/mp-suscribir")
     for (const e of document.querySelectorAll("[data-price]")) e.textContent = txt;
   })
   .catch(() => {});
+
+// Vuelta desde el mail de confirmacion: Supabase manda la sesion en el #
+(function(){
+  if (!location.hash.includes("access_token=") && !location.hash.includes("error")) return;
+  const h = new URLSearchParams(location.hash.slice(1));
+  history.replaceState(null, "", location.pathname + location.search);
+  const b = $("pay-banner");
+  if (h.get("error") || h.get("error_description")){
+    b.textContent = "El link de confirmación venció o ya se usó. Probá ingresar en RAV; si no te deja, creá la cuenta de nuevo o escribinos.";
+    b.classList.add("warn"); b.hidden = false; $("cuenta").scrollIntoView(); return;
+  }
+  const token = h.get("access_token"), type = h.get("type");
+  if (!token || (type !== "signup" && type !== "email" && type !== "invite")) return;
+  b.textContent = "¡Tu mail quedó confirmado! Ya podés ingresar en RAV con tu mail y contraseña: tenés un mes gratis.";
+  b.hidden = false; $("cuenta").scrollIntoView();
+  session = {access_token: token};
+  fetch(SUPABASE_URL + "/auth/v1/user", {headers: {"apikey": SUPABASE_KEY, "Authorization": "Bearer " + token}})
+    .then(r => r.ok ? r.json() : null)
+    .then(u => showPay((u && u.email) || "", "¡Tu cuenta está lista!",
+      "Descargá RAV e ingresá con tu mail y contraseña. Si querés, dejá el pago listo ahora: el mes que pagues se suma al mes gratis."))
+    .catch(() => {});
+})();
 
 // Vuelta desde Mercado Pago (?pago=...)
 (function(){

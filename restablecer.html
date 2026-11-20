@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Restablecer contraseña | RAV</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23D4F23A'/%3E%3Ctext x='32' y='41' font-family='Arial' font-weight='700' font-size='22' text-anchor='middle' fill='%230E0F10'%3ERAV%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0E0F10;--card:#17191B;--line2:#34383C;--text:#F2F2EE;--soft:#C9CCCF;--muted:#A3A7AB;--accent:#D4F23A;--accent-hover:#E8FF7A;--on-accent:#0E0F10}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:#141414;color:var(--text);font-family:Inter,system-ui,sans-serif;font-size:16px;line-height:1.55;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 16px}
+a{color:var(--accent)}
+.lockup{display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--soft);margin-bottom:28px}
+.logo{width:48px;height:48px;border-radius:10px;background:var(--accent);color:var(--on-accent);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px}
+.lockup span{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13px;letter-spacing:3px;line-height:1.35}
+.card{width:100%;max-width:440px;background:var(--card);border:1px solid #2A2D30;border-radius:16px;padding:32px;display:flex;flex-direction:column;gap:16px}
+h1{margin:0;font-family:'Space Grotesk',sans-serif;font-size:28px;letter-spacing:-.5px}
+p{margin:0;color:var(--soft)}
+form{display:flex;flex-direction:column;gap:14px}
+form[hidden],.card [hidden]{display:none}
+label{font-size:14px;color:var(--soft);display:flex;flex-direction:column;gap:6px}
+input{background:var(--bg);color:var(--text);border:1px solid var(--line2);border-radius:8px;padding:12px;font:inherit;font-size:15px;min-height:46px}
+input:focus{outline:2px solid var(--accent);outline-offset:1px}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 22px;border-radius:10px;font-weight:600;text-decoration:none;font-size:15px;min-height:48px;border:0;font-family:inherit;cursor:pointer;background:var(--accent);color:var(--on-accent)}
+.btn:hover{background:var(--accent-hover)}
+.btn:disabled{opacity:.6;cursor:default}
+.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line2)}
+.msg{font-size:14px;color:var(--muted);margin:0}
+.msg.err{color:#FF8A80}.msg.ok{color:var(--accent)}
+.back{margin-top:20px;font-size:14px;color:var(--muted)}
+</style>
+</head>
+<body>
+<a class="lockup" href="/"><div class="logo">RAV</div><span>REFEREE ANALYTICS<br>&amp; VIDEO</span></a>
+
+<main class="card">
+  <!-- 1) Pedir el mail -->
+  <form id="ask">
+    <h1>¿Olvidaste tu contraseña?</h1>
+    <p>Escribí el mail de tu cuenta de RAV y te mandamos un link para elegir una nueva.</p>
+    <label>Mail<input id="a-mail" type="email" autocomplete="email" required></label>
+    <button class="btn" type="submit">Enviarme el link</button>
+    <p class="msg" id="a-msg" aria-live="polite"></p>
+  </form>
+
+  <!-- 2) Elegir la nueva (cuando se llega desde el link del mail) -->
+  <form id="set" hidden>
+    <h1>Elegí tu nueva contraseña</h1>
+    <p id="s-who">Con esta contraseña vas a ingresar a RAV.</p>
+    <label>Nueva contraseña<input id="s-pass" type="password" autocomplete="new-password" minlength="8" required></label>
+    <label>Repetir contraseña<input id="s-pass2" type="password" autocomplete="new-password" minlength="8" required></label>
+    <button class="btn" type="submit">Guardar contraseña</button>
+    <p class="msg" id="s-msg" aria-live="polite"></p>
+  </form>
+
+  <!-- 3) Listo -->
+  <div id="done" hidden>
+    <h1>¡Listo!</h1>
+    <p style="margin-top:12px">Tu contraseña se cambió. Abrí RAV e ingresá con tu mail y la contraseña nueva.</p>
+    <p style="margin-top:20px"><a class="btn ghost" href="/#descargas">Descargar RAV</a></p>
+  </div>
+</main>
+<p class="back"><a href="/">Volver a ravreferee.com</a></p>
+
+<script>
+const SUPABASE_URL = "https://eqzcmhhysexbwzdoxauu.supabase.co";
+const SUPABASE_KEY = "sb_publishable_Z65iHxAz8QdKUuNamv_m7Q_1UR9D6S8";
+const HERE = "https://ravreferee.com/restablecer.html";
+const $ = id => document.getElementById(id);
+function say(id, text, kind){ const m = $(id); m.textContent = text; m.className = "msg" + (kind ? " " + kind : ""); }
+
+// Lo que manda Supabase al volver del link del mail (va en el #)
+const h = new URLSearchParams(location.hash.slice(1));
+const token = h.get("type") === "recovery" ? h.get("access_token") : null;
+history.replaceState(null, "", location.pathname);
+
+if (token){
+  $("ask").hidden = true; $("set").hidden = false; $("s-pass").focus();
+} else if (h.get("error_description") || h.get("error")){
+  say("a-msg", "El link venció o ya se usó. Pedí uno nuevo acá abajo.", "err");
+}
+
+$("ask").addEventListener("submit", async ev => {
+  ev.preventDefault();
+  const btn = ev.target.querySelector("button"); btn.disabled = true;
+  try{
+    const r = await fetch(SUPABASE_URL + "/auth/v1/recover?redirect_to=" + encodeURIComponent(HERE), {
+      method: "POST", headers: {"apikey": SUPABASE_KEY, "Content-Type": "application/json"},
+      body: JSON.stringify({email: $("a-mail").value.trim()})});
+    if (r.status === 429) return say("a-msg", "Pediste varios links seguidos. Esperá unos minutos y probá de nuevo.", "err");
+    // Por seguridad se responde igual exista o no la cuenta
+    say("a-msg", "Si ese mail tiene una cuenta de RAV, te llegó un link. Revisá también la carpeta de spam.", "ok");
+  } catch(e){ say("a-msg", "No se pudo conectar. Revisá tu conexión y probá de nuevo.", "err"); }
+  finally{ btn.disabled = false; }
+});
+
+$("set").addEventListener("submit", async ev => {
+  ev.preventDefault();
+  const pass = $("s-pass").value;
+  if (pass.length < 8) return say("s-msg", "La contraseña tiene que tener al menos 8 caracteres.", "err");
+  if (pass !== $("s-pass2").value) return say("s-msg", "Las contraseñas no coinciden.", "err");
+  const btn = ev.target.querySelector("button"); btn.disabled = true;
+  try{
+    const r = await fetch(SUPABASE_URL + "/auth/v1/user", {
+      method: "PUT", headers: {"apikey": SUPABASE_KEY, "Authorization": "Bearer " + token, "Content-Type": "application/json"},
+      body: JSON.stringify({password: pass})});
+    let d = {}; try { d = await r.json(); } catch(e) {}
+    if (r.ok){ $("set").hidden = true; $("done").hidden = false; return; }
+    if (r.status === 401 || r.status === 403) return say("s-msg", "El link venció. Volvé a pedir uno desde \"¿Olvidaste tu contraseña?\".", "err");
+    if ((d.error_code || d.code) === "same_password") return say("s-msg", "Esa es tu contraseña actual: elegí una distinta.", "err");
+    if ((d.error_code || d.code) === "weak_password") return say("s-msg", "La contraseña es muy débil: usá al menos 8 caracteres.", "err");
+    say("s-msg", "No se pudo cambiar la contraseña. Probá de nuevo.", "err");
+  } catch(e){ say("s-msg", "No se pudo conectar. Revisá tu conexión y probá de nuevo.", "err"); }
+  finally{ btn.disabled = false; }
+});
+</script>
+</body>
+</html>
