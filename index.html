@@ -441,7 +441,7 @@ form > .field{flex:none}
       <div class="plan"><span class="price">AR$ <span data-price>10.000</span></span><span class="per">por mes</span></div>
       <ul class="perks">
         <li>1 mes gratis al crear tu cuenta</li>
-        <li>Renovás con Mercado Pago: suscripción automática, o mes a mes</li>
+        <li>Después, suscripción con débito automático por Mercado Pago: la cancelás cuando quieras</li>
         <li>Usás la misma cuenta para ingresar a RAV</li>
       </ul>
     </div>
@@ -492,9 +492,8 @@ form > .field{flex:none}
         <div class="field" style="flex:none"><label for="p-mail">Mail de tu cuenta de Mercado Pago</label>
           <input id="p-mail" type="email" autocomplete="email"></div>
         <p class="hint">Si pagás con otra cuenta de Mercado Pago, poné ese mail.</p>
-        <button class="btn btn-primary" type="button" id="btn-sub"><span>Suscripción automática · AR$ <span data-price>10.000</span> por mes</span></button>
-        <button class="btn btn-ghost" type="button" id="btn-once">Mes a mes · pagar solo este mes</button>
-        <p class="hint"><b>Suscripción automática:</b> se cobra sola cada mes con tarjeta y no te tenés que acordar; la cancelás cuando quieras. <b>Mes a mes:</b> pagás solo este mes con saldo de Mercado Pago, débito o crédito; no se renueva y el mes que viene volvés a renovar acá.</p>
+        <button class="btn btn-primary" type="button" id="btn-sub"><span>Suscribirme · AR$ <span data-price>10.000</span> por mes</span></button>
+        <p class="hint">Se cobra solo cada mes con tu tarjeta de crédito o débito, a través de Mercado Pago. La cancelás cuando quieras desde Mercado Pago o con el Botón de baja.</p>
         <p class="msg" id="p-msg" aria-live="polite"></p>
         <a class="btn btn-ghost" href="#descargas">Descargar RAV</a>
       </div>
@@ -757,7 +756,7 @@ $("pane-new").addEventListener("submit", async ev => {
     }
     session = r.data;
     showPay(email, "¡Tu cuenta está lista!",
-      "Tenés un mes gratis. Descargá RAV e ingresá con tu mail y contraseña. Si querés, dejá el pago listo ahora: el mes que pagues se suma al mes gratis.");
+      "Tenés un mes gratis. Descargá RAV e ingresá con tu mail y contraseña. Si querés, dejá la suscripción lista ahora: tus días gratis se respetan.");
   } catch(e){ say("n-msg", "No se pudo conectar. Revisá tu conexión y probá de nuevo.", "err"); }
   finally{ busy(btn, false); }
 });
@@ -771,7 +770,7 @@ $("pane-login").addEventListener("submit", async ev => {
     const r = await api("/auth/v1/token?grant_type=password", {email, password: $("l-pass").value});
     if (!r.ok || !r.data.access_token) return say("l-msg", (r.data.error_code || r.data.code) === "email_not_confirmed" ? "Todavía no confirmaste tu mail: tocá el link que te mandamos (revisá spam)." : "Mail o contraseña incorrectos.", "err");
     session = r.data;
-    showPay(email, "Renovar RAV", "Elegí cómo renovar. Si todavía te quedan días, el mes que pagás se suma a lo que te queda.");
+    showPay(email, "Renovar RAV", "Suscribite para seguir usando RAV. Si todavía te quedan días, se respetan.");
   } catch(e){ say("l-msg", "No se pudo conectar. Revisá tu conexión y probá de nuevo.", "err"); }
   finally{ busy(btn, false); }
 });
@@ -792,7 +791,6 @@ async function goPay(once, btn){
   finally{ busy(btn, false); }
 }
 $("btn-sub").addEventListener("click", ev => goPay(false, ev.currentTarget));
-$("btn-once").addEventListener("click", ev => goPay(true, ev.currentTarget));
 
 // Precio vigente: lo da el servidor (secreto MP_PRICE en Supabase), asi se
 // cambia sin tocar la web. Si no responde, queda el que esta escrito.
@@ -823,7 +821,7 @@ fetch(SUPABASE_URL + "/functions/v1/mp-suscribir")
   fetch(SUPABASE_URL + "/auth/v1/user", {headers: {"apikey": SUPABASE_KEY, "Authorization": "Bearer " + token}})
     .then(r => r.ok ? r.json() : null)
     .then(u => showPay((u && u.email) || "", "¡Tu cuenta está lista!",
-      "Descargá RAV e ingresá con tu mail y contraseña. Si querés, dejá el pago listo ahora: el mes que pagues se suma al mes gratis."))
+      "Descargá RAV e ingresá con tu mail y contraseña. Si querés, dejá la suscripción lista ahora: tus días gratis se respetan."))
     .catch(() => {});
 })();
 
