@@ -32,6 +32,11 @@ input:focus{outline:2px solid var(--accent);outline-offset:1px}
 .msg{font-size:14px;color:var(--muted);margin:0}
 .msg.err{color:#FF8A80}.msg.ok{color:var(--accent)}
 .back{margin-top:20px;font-size:14px;color:var(--muted)}
+.pw-wrap{position:relative;display:flex}
+.pw-wrap input{flex:1;min-width:0;padding-right:48px}
+.pw-eye{position:absolute;right:4px;top:50%;transform:translateY(-50%);width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:none;border:0;border-radius:8px;color:#A3A7AB;cursor:pointer;padding:0}
+.pw-eye:hover{color:#F2F2EE}
+.pw-eye:focus-visible{outline:2px solid #D4F23A}
 </style>
 </head>
 <body>
@@ -117,6 +122,26 @@ $("set").addEventListener("submit", async ev => {
   } catch(e){ say("s-msg", "No se pudo conectar. Revisá tu conexión y probá de nuevo.", "err"); }
   finally{ btn.disabled = false; }
 });
+
+// Ojito para ver la contraseña en cada campo de contraseña
+(function(){
+  const eye = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>';
+  const eyeOff = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3l18 18"/><path d="M10.6 5.1A10.7 10.7 0 0 1 12 5c6.4 0 10 7 10 7a17 17 0 0 1-3.2 4.1M6.6 6.6A17 17 0 0 0 2 12s3.6 7 10 7a10.5 10.5 0 0 0 5.4-1.5"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg>';
+  for (const input of document.querySelectorAll('input[type="password"]')){
+    const wrap = document.createElement("span"); wrap.className = "pw-wrap";
+    input.parentNode.insertBefore(wrap, input); wrap.appendChild(input);
+    const b = document.createElement("button"); b.type = "button"; b.className = "pw-eye";
+    b.innerHTML = eye; b.setAttribute("aria-label", "Mostrar contraseña");
+    b.addEventListener("click", () => {
+      const show = input.type === "password";
+      input.type = show ? "text" : "password";
+      b.innerHTML = show ? eyeOff : eye;
+      b.setAttribute("aria-label", show ? "Ocultar contraseña" : "Mostrar contraseña");
+      input.focus();
+    });
+    wrap.appendChild(b);
+  }
+})();
 </script>
 </body>
 </html>
