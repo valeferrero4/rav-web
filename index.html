@@ -62,7 +62,7 @@ nav{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between
 
 /* hero (mismo diseño que el banner) */
 .hero-band{background:#141414;border-bottom:1px solid var(--line)}
-.hero{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,1.13fr);align-items:center;gap:48px;padding-top:72px;padding-bottom:72px}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);align-items:center;gap:48px;padding-top:72px;padding-bottom:72px}
 .hero-text{min-width:0;display:flex;flex-direction:column;gap:22px}
 .lockup{display:flex;align-items:center;gap:14px}
 .lockup .logo{width:56px;height:56px;border-radius:12px;font-size:20px;flex:none}
@@ -80,6 +80,11 @@ nav{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between
   .hero{grid-template-columns:1fr;gap:32px;padding-top:40px;padding-bottom:48px}
   .hero-img{margin:0 -8px}
 }
+@media (max-width:374px){
+  .nav-right .btn{padding:10px 10px;font-size:13px}
+  header .brand{display:none}
+  header nav{justify-content:flex-end}
+}
 @media (max-width:600px){
   .hero h1{letter-spacing:-1.2px}
   .hero p{font-size:17px}
@@ -94,8 +99,7 @@ header nav.wrap{padding-top:12px;padding-bottom:12px}
 .ig-foot:hover{color:var(--text)}
 .btn-accent{border-color:var(--accent);color:var(--accent)}
 .btn-accent:hover{background:rgba(212,242,58,.1);border-color:var(--accent-hover);color:var(--accent-hover)}
-.links a.l.cta-nav{color:var(--accent);border:1px solid var(--accent);border-radius:10px;padding:9px 14px;margin:0 4px;font-weight:600}
-.links a.l.cta-nav:hover{background:rgba(212,242,58,.1);color:var(--accent-hover)}
+.links .nav-cta{padding:9px 16px;min-height:0;margin-left:8px}
 /* menu en celular */
 .menu-btn{display:none;background:none;border:1px solid var(--line2);color:var(--text);border-radius:10px;width:44px;height:44px;align-items:center;justify-content:center;cursor:pointer}
 @media (max-width:860px){
@@ -106,10 +110,11 @@ header nav.wrap{padding-top:12px;padding-bottom:12px}
   .links.open{display:flex}
   .links a.l{padding:14px 8px;font-size:17px;border-bottom:1px solid var(--line)}
   .links a.ig span{display:inline}
-  .links a.l.cta-nav{border:0;border-bottom:1px solid var(--line);border-radius:0;margin:0;padding:14px 8px}
   .links .btn{display:none}
   .nav-right{display:flex;align-items:center;gap:8px}
-  .nav-right .btn{padding:10px 16px;min-height:44px}
+  .nav-right .btn{padding:10px 12px;min-height:44px;font-size:14px;white-space:nowrap}
+  .nav-right .menu-btn{flex:none}
+  .nav-right{gap:6px}
 }
 @media (min-width:861px){.nav-right .btn{display:none}}
 .dots{display:flex;gap:6px;padding:2px 4px}.dots i{width:10px;height:10px;border-radius:50%;background:#3A3E42}
@@ -257,6 +262,7 @@ form > .field{flex:none}
     </a>
     <div class="nav-right">
       <a class="btn btn-primary" href="#descargas">Descargar</a>
+      <a class="btn btn-ghost btn-accent" href="#cuenta">Crear cuenta</a>
       <button class="menu-btn" type="button" id="menu-btn" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
@@ -265,10 +271,10 @@ form > .field{flex:none}
       <a class="l" href="#funciones">Funciones</a>
       <a class="l" href="#instalacion">Instalación</a>
       <a class="l" href="#novedades">Novedades</a>
-      <a class="l cta-nav" href="#cuenta">Crear cuenta</a>
       <a class="l" href="#reportar">Reportar</a>
       <a class="l ig" href="https://www.instagram.com/ravreferee/" target="_blank" rel="noopener" aria-label="Instagram de RAV"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/></svg><span>Instagram</span></a>
       <a class="btn btn-primary" href="#descargas" style="padding:10px 18px;min-height:0">Descargar</a>
+      <a class="btn btn-ghost btn-accent nav-cta" href="#cuenta">Crear cuenta</a>
     </div>
   </nav>
 </header>
@@ -287,7 +293,7 @@ form > .field{flex:none}
     <div class="cta">
       <a class="btn btn-primary" href="#descargas">Descargar RAV
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v12M6 11l6 6 6-6M5 20h14"/></svg></a>
-      <a class="btn btn-ghost btn-accent" href="#cuenta">Creá tu cuenta · 1er mes bonificado</a>
+      <a class="btn btn-ghost btn-accent" href="#cuenta">Probar 1 mes gratis</a>
     </div>
   </div>
   <div class="hero-img">
@@ -444,10 +450,10 @@ form > .field{flex:none}
   <div class="report">
     <div>
       <h2>Tu cuenta de RAV</h2>
-      <p>Creá tu cuenta y tu primer mes de RAV está bonificado, sin tarjeta. Después seguís con el plan Particular.</p>
+      <p>Creá tu cuenta y usá RAV gratis durante un mes, sin tarjeta. Después seguís con el plan Particular.</p>
       <div class="plan"><span class="price">AR$ <span data-price>10.000</span></span><span class="per">por mes</span></div>
       <ul class="perks">
-        <li>Primer mes bonificado al crear tu cuenta, sin tarjeta</li>
+        <li>1 mes gratis al crear tu cuenta</li>
         <li>Después, suscripción con débito automático por Mercado Pago: la cancelás cuando quieras</li>
         <li>Usás la misma cuenta para ingresar a RAV</li>
       </ul>
@@ -469,7 +475,7 @@ form > .field{flex:none}
         </div>
         <p class="hint">Al menos 8 caracteres. Con este mail y contraseña vas a ingresar a RAV.</p>
         <label class="check"><input id="n-terms" type="checkbox" required> <span>Leí y acepto los <a href="terminos.html" target="_blank">Términos y condiciones</a>.</span></label>
-        <button class="btn btn-primary" type="submit">Crear cuenta · 1er mes bonificado</button>
+        <button class="btn btn-primary" type="submit">Crear cuenta · 1 mes gratis</button>
         <p class="msg" id="n-msg" aria-live="polite"></p>
         <div class="renew-box">
           <span>¿Ya tenés cuenta?</span>
@@ -490,7 +496,7 @@ form > .field{flex:none}
         <a href="restablecer.html" style="font-size:14px;align-self:flex-start">¿Olvidaste tu contraseña?</a>
         <div class="renew-box">
           <span>¿No tenés cuenta?</span>
-          <button class="btn btn-ghost" type="button" id="go-new">Crear cuenta · 1er mes bonificado</button>
+          <button class="btn btn-ghost" type="button" id="go-new">Crear cuenta · 1 mes gratis</button>
         </div>
       </form>
 
@@ -770,11 +776,11 @@ $("pane-new").addEventListener("submit", async ev => {
     if (!r.data.access_token){
       const u = r.data.user || r.data;
       if (u.identities && u.identities.length === 0){ say("n-msg", SIGNUP_ERRORS.user_already_exists, "err"); addForgot("n-msg"); return; }
-      return say("n-msg", "¡Casi listo! Te mandamos un mail a " + email + ": tocá el link para confirmar tu cuenta (revisá también spam). Después ingresá en RAV con tu mail y contraseña: tu primer mes está bonificado.", "ok");
+      return say("n-msg", "¡Casi listo! Te mandamos un mail a " + email + ": tocá el link para confirmar tu cuenta (revisá también spam). Después ingresá en RAV con tu mail y contraseña: tenés un mes gratis.", "ok");
     }
     session = r.data;
     showPay(email, "¡Tu cuenta está lista!",
-      "Tu primer mes está bonificado. Descargá RAV e ingresá con tu mail y contraseña. Si querés, dejá la suscripción lista ahora: tus días gratis se respetan.");
+      "Tenés un mes gratis. Descargá RAV e ingresá con tu mail y contraseña. Si querés, dejá la suscripción lista ahora: tus días gratis se respetan.");
   } catch(e){ say("n-msg", "No se pudo conectar. Revisá tu conexión y probá de nuevo.", "err"); }
   finally{ busy(btn, false); }
 });
@@ -833,7 +839,7 @@ fetch(SUPABASE_URL + "/functions/v1/mp-suscribir")
   }
   const token = h.get("access_token"), type = h.get("type");
   if (!token || (type !== "signup" && type !== "email" && type !== "invite")) return;
-  b.textContent = "¡Tu mail quedó confirmado! Ya podés ingresar en RAV con tu mail y contraseña: tu primer mes está bonificado.";
+  b.textContent = "¡Tu mail quedó confirmado! Ya podés ingresar en RAV con tu mail y contraseña: tenés un mes gratis.";
   b.hidden = false; $("cuenta").scrollIntoView();
   session = {access_token: token};
   fetch(SUPABASE_URL + "/auth/v1/user", {headers: {"apikey": SUPABASE_KEY, "Authorization": "Bearer " + token}})
