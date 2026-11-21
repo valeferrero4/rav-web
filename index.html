@@ -469,6 +469,7 @@ form > .field{flex:none}
         <div class="renew-box">
           <span>¿Ya tenés cuenta?</span>
           <button class="btn btn-ghost" type="button" id="go-renew">Suscribite acá</button>
+          <a href="restablecer.html" style="font-size:14px">¿Olvidaste tu contraseña?</a>
         </div>
       </form>
 
@@ -550,7 +551,7 @@ form > .field{flex:none}
       <a class="ig-foot" href="https://www.instagram.com/ravreferee/" target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/></svg>@ravreferee</a>
     </div>
     <div style="display:flex;flex-wrap:wrap;gap:20px">
-      <a href="#descargas">Descargas</a><a href="#instalacion">Instalación</a><a href="#novedades">Novedades</a><a href="#cuenta">Crear cuenta</a><a href="#reportar">Contacto</a><a href="terminos.html">Términos y condiciones</a><a href="#baja">Botón de baja</a><a href="#baja">Botón de arrepentimiento</a>
+      <a href="#descargas">Descargas</a><a href="#instalacion">Instalación</a><a href="#novedades">Novedades</a><a href="#cuenta">Crear cuenta</a><a href="#reportar">Contacto</a><a href="restablecer.html">¿Olvidaste tu contraseña?</a><a href="terminos.html">Términos y condiciones</a><a href="#baja">Botón de baja</a><a href="#baja">Botón de arrepentimiento</a>
     </div>
   </div>
 </footer>
@@ -716,6 +717,10 @@ async function api(path, body, token){
   return {ok: r.ok, status: r.status, data: data || {}};
 }
 const $ = id => document.getElementById(id);
+function addForgot(id){
+  const a = document.createElement("a"); a.href = "restablecer.html"; a.textContent = "¿Olvidaste tu contraseña?";
+  $(id).append(" ", a);
+}
 function say(id, text, kind){ const m = $(id); m.textContent = text; m.className = "msg" + (kind ? " " + kind : ""); }
 function busy(btn, on, text){ if(on){ btn.dataset.label = btn.innerHTML; btn.textContent = text; btn.disabled = true; } else { if (btn.dataset.label) btn.innerHTML = btn.dataset.label; btn.disabled = false; } }
 
@@ -751,10 +756,15 @@ $("pane-new").addEventListener("submit", async ev => {
   busy(btn, true, "Creando cuenta…"); say("n-msg", "");
   try{
     const r = await api("/auth/v1/signup?redirect_to=" + encodeURIComponent("https://ravreferee.com/"), {email, password: pass, data: {full_name: $("n-nombre").value.trim()}});
-    if (!r.ok) return say("n-msg", SIGNUP_ERRORS[r.data.error_code || r.data.code] || "No se pudo crear la cuenta. Revisá los datos.", "err");
+    if (!r.ok){
+      const code = r.data.error_code || r.data.code;
+      say("n-msg", SIGNUP_ERRORS[code] || "No se pudo crear la cuenta. Revisá los datos.", "err");
+      if (code === "user_already_exists" || code === "email_exists") addForgot("n-msg");
+      return;
+    }
     if (!r.data.access_token){
       const u = r.data.user || r.data;
-      if (u.identities && u.identities.length === 0) return say("n-msg", SIGNUP_ERRORS.user_already_exists, "err");
+      if (u.identities && u.identities.length === 0){ say("n-msg", SIGNUP_ERRORS.user_already_exists, "err"); addForgot("n-msg"); return; }
       return say("n-msg", "¡Casi listo! Te mandamos un mail a " + email + ": tocá el link para confirmar tu cuenta (revisá también spam). Después ingresá en RAV con tu mail y contraseña: tenés un mes gratis.", "ok");
     }
     session = r.data;
