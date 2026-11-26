@@ -664,9 +664,11 @@ function el(tag, cls, text){ const e=document.createElement(tag); if(cls) e.clas
 // Convierte las notas de la versión (escritas en GitHub) en lista
 function notesToNodes(body){
   const frag = document.createDocumentFragment();
-  // Se saltean las líneas de "Instrucciones de instalación" y los links sueltos
+  // Se saltean las líneas de "Instrucciones de instalación", los links sueltos
+  // y las marcas internas en comentario
   const lines = (body || "").split(/\r?\n/).map(l => l.trim()).filter(Boolean)
-    .filter(l => !/instrucciones de instalaci/i.test(l) && !/^[-*]?\s*(https?:\/\/|\[.*\]\(https?:)/i.test(l));
+    .filter(l => !/instrucciones de instalaci/i.test(l) && !/^[-*]?\s*(https?:\/\/|\[.*\]\(https?:)/i.test(l))
+    .filter(l => !/^<!--.*-->$/.test(l));   // marcas internas, como <!-- obligatoria -->
   if (!lines.length){ const p = el("p", null, "Mejoras y correcciones."); p.style.margin = "0"; frag.appendChild(p); return frag; }
   let ul = null;
   for (const line of lines){
