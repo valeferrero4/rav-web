@@ -305,6 +305,85 @@ form > .field{flex:none}
 .pw-eye{position:absolute;right:4px;top:50%;transform:translateY(-50%);width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:none;border:0;border-radius:8px;color:#A3A7AB;cursor:pointer;padding:0}
 .pw-eye:hover{color:#F2F2EE}
 .pw-eye:focus-visible{outline:2px solid #D4F23A}
+
+/* ================= DEMO: efectos interactivos ================= */
+/* Barra de progreso de lectura */
+#progress{position:fixed;top:0;left:0;height:3px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,#D4F23A,#6FE07A,#3FC7E8);z-index:50}
+/* Encabezado: se compacta y se oscurece al bajar */
+header{transition:background-color .3s,box-shadow .3s}
+header.scrolled{background:rgba(10,11,12,.96);box-shadow:0 10px 30px rgba(0,0,0,.35)}
+header nav.wrap{transition:padding .3s}
+header.scrolled nav.wrap{padding-top:6px;padding-bottom:6px}
+.links a.l{position:relative;transition:color .2s}
+.links a.l::after{content:"";position:absolute;left:12px;right:12px;bottom:4px;height:2px;border-radius:2px;background:var(--accent);transform:scaleX(0);transition:transform .25s ease}
+.links a.l:hover::after{transform:scaleX(1)}
+/* Botones: se elevan, brillan y responden al click */
+.btn{transition:transform .2s cubic-bezier(.2,.8,.2,1),box-shadow .25s,background-color .2s,border-color .2s,color .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:translateY(0) scale(.97)}
+.btn-primary:hover{box-shadow:0 10px 28px rgba(212,242,58,.35),0 0 0 4px rgba(212,242,58,.12)}
+.btn-primary svg{transition:transform .25s}
+.btn-primary:hover svg{animation:bob .8s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(3px)}}
+.btn-ghost:hover{background:rgba(255,255,255,.05);box-shadow:0 8px 22px rgba(0,0,0,.35)}
+.btn-accent:hover{box-shadow:0 8px 24px rgba(212,242,58,.18)}
+/* Tarjetas de funciones: cada una con el color de una categoria de RAV */
+#funciones .card{--c:#D4F23A;position:relative;overflow:hidden;transition:transform .3s cubic-bezier(.2,.8,.2,1),border-color .3s,box-shadow .3s}
+#funciones .card:nth-child(2){--c:#6FE07A}
+#funciones .card:nth-child(3){--c:#F26BC1}
+#funciones .card:nth-child(4){--c:#FF8A3D}
+#funciones .card:nth-child(5){--c:#4D7CFF}
+#funciones .card::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .3s;
+  background:radial-gradient(420px circle at var(--mx,50%) var(--my,0%),color-mix(in srgb,var(--c) 18%,transparent),transparent 60%)}
+#funciones .card:hover::before{opacity:1}
+#funciones .card:hover{transform:translateY(-6px);border-color:color-mix(in srgb,var(--c) 60%,transparent);box-shadow:0 18px 40px rgba(0,0,0,.45),0 0 0 1px color-mix(in srgb,var(--c) 25%,transparent)}
+#funciones .card svg{transition:transform .35s cubic-bezier(.2,.8,.2,1),stroke .3s}
+#funciones .card:hover svg{stroke:var(--c);transform:scale(1.15) rotate(-6deg)}
+#funciones .card h3{transition:color .3s}
+#funciones .card:hover h3{color:var(--c)}
+/* Imagen principal: entra suave, flota y se inclina con el mouse */
+.hero-img{perspective:1200px}
+.hero-img img{transition:transform .4s cubic-bezier(.2,.8,.2,1),filter .4s;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));will-change:transform}
+.hero-img:hover img{filter:drop-shadow(0 30px 50px rgba(212,242,58,.10))}
+/* Captura mas grande: el hero usa mas ancho y la imagen toma mas lugar */
+@media (min-width:901px){
+  .hero{max-width:1520px;grid-template-columns:minmax(0,.82fr) minmax(0,1.75fr);gap:40px}
+  .hero h1{font-size:clamp(44px,5.2vw,72px)}
+}
+@media (min-width:1400px){ .hero-img{margin-right:-32px} }
+/* La imagen entra desde la derecha, un poco mas grande */
+.hero-img.reveal{transform:translateX(40px) scale(.97)}
+.hero-img.reveal.in{transform:none}
+.hero-band h1 em{background:linear-gradient(90deg,#D4F23A,#6FE07A,#D4F23A);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 6s linear infinite}
+@keyframes shine{to{background-position:200% 0}}
+/* Aparecen al bajar */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.2,.8,.2,1),transform .7s cubic-bezier(.2,.8,.2,1);transition-delay:var(--d,0s)}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  .btn,.btn:hover,#funciones .card,#funciones .card:hover,.hero-img img{transform:none!important;animation:none!important;transition:none}
+  .hero-band *{animation:none!important}
+}
+
+/* Contacto */
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.contact{--c:#D4F23A;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:6px;padding:24px;border-radius:16px;
+  background:var(--card);border:1px solid #2A2D30;color:var(--text);text-decoration:none;
+  transition:transform .3s cubic-bezier(.2,.8,.2,1),border-color .3s,box-shadow .3s}
+.contact::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .3s;
+  background:radial-gradient(380px circle at var(--mx,50%) var(--my,0%),color-mix(in srgb,var(--c) 20%,transparent),transparent 60%)}
+.contact:hover::before{opacity:1}
+.contact:hover{transform:translateY(-6px);border-color:color-mix(in srgb,var(--c) 60%,transparent);color:var(--text);
+  box-shadow:0 18px 40px rgba(0,0,0,.45),0 0 0 1px color-mix(in srgb,var(--c) 25%,transparent)}
+.contact-icon{width:50px;height:50px;border-radius:14px;display:grid;place-items:center;margin-bottom:10px;color:var(--c);
+  background:color-mix(in srgb,var(--c) 14%,transparent);border:1px solid color-mix(in srgb,var(--c) 35%,transparent);
+  transition:transform .35s cubic-bezier(.2,.8,.2,1),background-color .3s,color .3s}
+.contact:hover .contact-icon{transform:scale(1.1) rotate(-6deg);background:var(--c);color:#0E0F10}
+.contact-label{font-size:13px;color:var(--muted);font-weight:600;letter-spacing:.3px;text-transform:uppercase}
+.contact strong{font-size:18px;font-weight:600;word-break:break-word}
+.contact-go{margin-top:8px;font-size:14px;font-weight:600;color:var(--c);transition:transform .25s}
+.contact:hover .contact-go{transform:translateX(4px)}
+@media (prefers-reduced-motion:reduce){.contact,.contact:hover,.contact-icon,.contact-go{transform:none!important;transition:none}}
 </style>
 </head>
 <body>
@@ -326,7 +405,7 @@ form > .field{flex:none}
       <a class="l" href="#funciones">Funciones</a>
       <a class="l" href="#instalacion">Instalación</a>
       <a class="l" href="#novedades">Novedades</a>
-      <a class="l" href="#reportar">Reportar</a>
+      <a class="l" href="#contacto">Contacto</a>
       <a class="l ig" href="https://www.instagram.com/ravreferee/" target="_blank" rel="noopener" aria-label="Instagram de RAV"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/></svg><span>Instagram</span></a>
       <a class="btn btn-primary" href="#descargas" style="padding:10px 18px;min-height:0">Descargar</a>
       <a class="btn btn-ghost btn-accent nav-cta" href="#cuenta">Crear cuenta</a>
@@ -609,6 +688,35 @@ form > .field{flex:none}
 </section>
 </main>
 
+<section id="contacto" class="band">
+  <div class="wrap sec">
+    <div class="sec-head">
+      <h2>Contacto</h2>
+      <p>¿Tenés una duda, querés RAV para tu unión o necesitás ayuda? Escribinos por donde te quede más cómodo.</p>
+    </div>
+    <div class="contact-grid">
+      <a class="contact" style="--c:#D4F23A" href="mailto:contacto@ravreferee.com">
+        <span class="contact-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span>
+        <span class="contact-label">Email</span>
+        <strong>contacto@ravreferee.com</strong>
+        <span class="contact-go">Escribir →</span>
+      </a>
+      <a class="contact" style="--c:#25D366" href="https://wa.me/5493472499372?text=Hola%2C%20quer%C3%ADa%20consultar%20por%20RAV" target="_blank" rel="noopener">
+        <span class="contact-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 11.6a8.5 8.5 0 0 1-12.6 7.4L3.5 20.5l1.5-4.3A8.5 8.5 0 1 1 20.5 11.6z"/><path d="M9 8.8c.2 1.7 1.2 3.6 2.9 4.9 1 .8 2.1 1.2 3 1.3l1-1.3-1.7-.9-.8.8c-1.1-.5-2-1.4-2.5-2.5l.8-.8-.9-1.7z"/></svg></span>
+        <span class="contact-label">WhatsApp</span>
+        <strong>Chateá con nosotros</strong>
+        <span class="contact-go">Abrir chat →</span>
+      </a>
+      <a class="contact" style="--c:#F26BC1" href="https://www.instagram.com/ravreferee/" target="_blank" rel="noopener">
+        <span class="contact-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/></svg></span>
+        <span class="contact-label">Instagram</span>
+        <strong>@ravreferee</strong>
+        <span class="contact-go">Seguinos →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
 <footer>
   <div class="wrap foot">
     <div style="display:flex;align-items:center;gap:10px">
@@ -617,7 +725,7 @@ form > .field{flex:none}
       <a class="ig-foot" href="https://www.instagram.com/ravreferee/" target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/></svg>@ravreferee</a>
     </div>
     <div style="display:flex;flex-wrap:wrap;gap:20px">
-      <a href="#descargas">Descargas</a><a href="#instalacion">Instalación</a><a href="#novedades">Novedades</a><a href="#cuenta">Crear cuenta</a><a href="#reportar">Contacto</a><a href="restablecer.html">¿Olvidaste tu contraseña?</a><a href="terminos.html">Términos y condiciones</a><a href="#baja">Botón de baja</a><a href="#baja">Botón de arrepentimiento</a>
+      <a href="#descargas">Descargas</a><a href="#instalacion">Instalación</a><a href="#novedades">Novedades</a><a href="#cuenta">Crear cuenta</a><a href="#contacto">Contacto</a><a href="restablecer.html">¿Olvidaste tu contraseña?</a><a href="terminos.html">Términos y condiciones</a><a href="#baja">Botón de baja</a><a href="#baja">Botón de arrepentimiento</a>
     </div>
   </div>
 </footer>
@@ -627,7 +735,7 @@ form > .field{flex:none}
 // Repositorio PÚBLICO donde publicás las versiones (usuario/repo)
 const REPO = "valeferrero4/RAV-descargas";
 // Mail donde te llegan los reportes
-const EMAIL = "valeferrero4@gmail.com";
+const EMAIL = "contacto@ravreferee.com";
 // Nombre EXACTO de los archivos que subís en cada versión de GitHub
 const FILES = {
   "mac-arm":   "RAV-mac-apple-silicon.dmg",
@@ -957,6 +1065,58 @@ document.getElementById("report-form").addEventListener("submit", ev => {
       input.focus();
     });
     wrap.appendChild(b);
+  }
+})();
+</script>
+
+<div id="progress"></div>
+<script>
+/* DEMO: efectos interactivos */
+(function(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var header = document.querySelector('header'), bar = document.getElementById('progress');
+  function onScroll(){
+    var h = document.documentElement, max = h.scrollHeight - h.clientHeight;
+    bar.style.transform = 'scaleX(' + (max > 0 ? h.scrollTop / max : 0) + ')';
+    header.classList.toggle('scrolled', h.scrollTop > 20);
+  }
+  addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+  // Aparecen al bajar, de a uno (escalonado)
+  var targets = document.querySelectorAll('.hero-text > *, .hero-img, .sec-head, .grid > *, #descargas .dl, #novedades .wrap > *:not(.sec-head), #instalacion .wrap > *:not(.sec-head), #cuenta > *, #reportar > *, .contact-grid > *');
+  if (!reduce && 'IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      // Se repite: aparece cada vez que entra en pantalla y se esconde al salir
+      entries.forEach(function(e){ e.target.classList.toggle('in', e.isIntersecting); });
+    }, {threshold:.12, rootMargin:'0px 0px -30px 0px'});
+    targets.forEach(function(el){
+      var sib = el.parentElement ? Array.prototype.indexOf.call(el.parentElement.children, el) : 0;
+      el.style.setProperty('--d', Math.min(sib, 6) * 0.08 + 's');
+      el.classList.add('reveal'); io.observe(el);
+    });
+  }
+
+  // Luz que sigue al mouse en las tarjetas
+  document.querySelectorAll('#funciones .card, .contact').forEach(function(card){
+    card.addEventListener('mousemove', function(ev){
+      var r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', (ev.clientX - r.left) + 'px');
+      card.style.setProperty('--my', (ev.clientY - r.top) + 'px');
+    });
+  });
+
+  // La captura se inclina siguiendo el mouse
+  var hero = document.querySelector('.hero-img'), img = hero && hero.querySelector('img');
+  if (hero && img && !reduce){
+    hero.addEventListener('mousemove', function(ev){
+      var r = hero.getBoundingClientRect();
+      var x = (ev.clientX - r.left) / r.width - .5, y = (ev.clientY - r.top) / r.height - .5;
+      img.style.setProperty('--ry', (x * 8).toFixed(2) + 'deg');
+      img.style.setProperty('--rx', (-y * 6).toFixed(2) + 'deg');
+    });
+    hero.addEventListener('mouseleave', function(){
+      img.style.setProperty('--ry', '0deg'); img.style.setProperty('--rx', '0deg');
+    });
   }
 })();
 </script>
